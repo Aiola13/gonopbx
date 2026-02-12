@@ -36,6 +36,23 @@ import Layout from '../layouts/Layout.astro';
         <p>Alle Ver&auml;nderungen und Neuerungen in GonoPBX auf einen Blick.</p>
       </div>
 
+      <!-- v1.5.3 -->
+      <div class="release">
+        <div class="release-header">
+          <div class="release-version">v1.5.3</div>
+          <div class="release-date">12. Februar 2026</div>
+        </div>
+        <div class="release-body">
+          <h3>Bugfixes</h3>
+          <ul>
+            <li>
+              <strong>Update-Mechanismus repariert</strong><br/>
+              Das Frontend wurde beim Web-Update nicht neu gebaut, weil der Rebuild-Prozess im Backend-Container abbrach. Updates laufen jetzt &uuml;ber einen separaten Helper-Container, der den Neustart aller Services zuverl&auml;ssig abschlie&szlig;t.
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <!-- v1.5.2 -->
       <div class="release">
         <div class="release-header">
