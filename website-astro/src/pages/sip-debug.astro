@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="SIP Debug - Live SIP-Nachrichten im Browser - GonoPBX" description="GonoPBX SIP Debug: Alle SIP-Nachrichten (INVITE, BYE, 200 OK) live im Browser anzeigen. Nach Call-ID gruppiert, mit expandierbarem Roh-SIP-Text. Ohne SSH, ohne CLI.">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#screenshots">Screenshots</a></li>
+        <li><a href="/#techstack">Technologie</a></li>
+        <li><a href="/#installation">Installation</a></li>
+        <li><a href="/release-notes">Release Notes</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Zur&uuml;ck zur &Uuml;bersicht
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Seit v1.7.0</span>
+        </div>
+        <h1>SIP Debug &ndash; Live SIP-Nachrichten im Browser</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          Mit der SIP-Debug-Seite siehst du <strong>alle ein- und ausgehenden SIP-Nachrichten</strong>
+          direkt in der Web-Oberfl&auml;che &ndash; ohne SSH, ohne Asterisk-CLI, ohne externe Tools wie
+          <code>sngrep</code> oder <code>Wireshark</code>.
+        </p>
+
+        <h2>Funktionen</h2>
+
+        <ul>
+          <li><strong>Toggle Capture</strong> &ndash; Aufzeichnung per Schalter ein- und ausschalten</li>
+          <li><strong>Call-Liste</strong> &ndash; Alle SIP-Dialoge nach Call-ID gruppiert mit Zeitstempel, Absender, Empf&auml;nger und SIP-Methode</li>
+          <li><strong>SIP-Timeline</strong> &ndash; Klick auf einen Call zeigt alle Nachrichten chronologisch</li>
+          <li><strong>Richtungspfeile</strong> &ndash; <span style="color:#3182ce;">&rarr; Gesendet</span> (blau) und <span style="color:#38a169;">&larr; Empfangen</span> (gr&uuml;n)</li>
+          <li><strong>Farbcodierung</strong> &ndash; Methoden blau, 2xx-Antworten gr&uuml;n, 4xx/5xx rot, 1xx gelb</li>
+          <li><strong>Expandierbarer Roh-SIP-Text</strong> &ndash; Voller SIP-Header und Body als Monospace-Block</li>
+          <li><strong>Auto-Refresh</strong> &ndash; Aktualisiert sich alle 10 Sekunden bei aktivem Capture</li>
+        </ul>
+
+        <h2>Screenshots</h2>
+
+        <div style="margin:32px 0;">
+          <img src="/sip-debug.png" alt="SIP Debug Call-Liste" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">Call-Liste mit gruppierten SIP-Dialogen</p>
+        </div>
+
+        <div style="margin:32px 0;">
+          <img src="/sip-debug-detail.png" alt="SIP Debug Nachrichten-Detail" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">Expandierte SIP-Nachrichten mit Roh-Text</p>
+        </div>
+
+        <h2>Wie funktioniert es technisch?</h2>
+
+        <p>
+          SIP Debug nutzt Asterisks eingebautes <code>res_pjsip_history</code>-Modul.
+          Beim Aktivieren wird die SIP-History in Asterisk eingeschaltet.
+          Das Backend pollt alle <strong>3 Sekunden</strong> &uuml;ber den AMI (Asterisk Manager Interface)
+          nach neuen Eintr&auml;gen und l&auml;dt f&uuml;r jeden neuen Eintrag den vollst&auml;ndigen SIP-Text.
+        </p>
+
+        <p>Die Nachrichten werden im Arbeitsspeicher gehalten &ndash; keine Datenbank, keine Logdateien:</p>
+
+        <ul>
+          <li><strong>Max. 2 Stunden</strong> Aufbewahrung &ndash; &auml;ltere Nachrichten werden automatisch gel&ouml;scht</li>
+          <li><strong>Hard-Cap: 10.000 Nachrichten</strong> &ndash; verhindert Speicher&uuml;berlauf bei hohem Traffic</li>
+          <li><strong>Kein Festplatten-I/O</strong> &ndash; alles im RAM, kein Performance-Impact auf die Anlage</li>
+        </ul>
+
+        <h2>Typische Anwendungsf&auml;lle</h2>
+
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Problem</th>
+              <th style="padding:12px 16px;color:#4a5568;">Was pr&uuml;fen?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Trunk registriert sich nicht</td>
+              <td style="padding:12px 16px;">REGISTER &rarr; 401/403 Antworten, Credentials pr&uuml;fen</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Eingehender Anruf klingelt nicht</td>
+              <td style="padding:12px 16px;">INVITE &rarr; 100 Trying / 180 Ringing Sequenz</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Audio nur in eine Richtung</td>
+              <td style="padding:12px 16px;">SDP-Body im INVITE/200 OK (Media-Adressen, NAT)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Falsche Caller-ID</td>
+              <td style="padding:12px 16px;">From-Header und P-Asserted-Identity im ausgehenden INVITE</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Anruf bricht nach 30s ab</td>
+              <td style="padding:12px 16px;">Fehlende ACK oder Session-Timer-Header</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Zugriff</h2>
+
+        <p>
+          Die SIP-Debug-Seite ist &uuml;ber die <strong>Navigation</strong> im GonoPBX-Webinterface erreichbar
+          (Bug-Icon zwischen FAQ und Einstellungen). Sie ist <strong>nur f&uuml;r Admins</strong> sichtbar &ndash;
+          Benutzer mit der Rolle &bdquo;User&ldquo; sehen den Men&uuml;punkt nicht.
+        </p>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Verf&uuml;gbar ab Version 1.7.0.</strong>
+            Update &uuml;ber <em>Einstellungen &rarr; Server &rarr; Update</em> oder manuell mit
+            <code>git pull &amp;&amp; docker compose up -d --build</code>.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live-Demo</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+        <li><a href="/datenschutz">Datenschutz</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle script -->
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>
