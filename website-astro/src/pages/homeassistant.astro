@@ -29,17 +29,32 @@ import Layout from '../layouts/Layout.astro';
   </nav>
 
   <!-- Hero Header -->
-  <section style="padding:60px 0 40px;background:linear-gradient(135deg, #ebf8ff 0%, #f0f4ff 100%);text-align:center;">
-    <div class="container">
-      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:20px;">
-        <img src="/homeassistant-logo.png" alt="Home Assistant" style="height:56px;" />
-        <span style="font-size:2rem;color:#cbd5e0;">+</span>
-        <img src="/logo.png" alt="GonoPBX" style="height:56px;" />
+  <section class="ha-hero" style="padding:80px 0 56px;background:linear-gradient(135deg, #ebf8ff 0%, #e8f4f8 50%, #f0f4ff 100%);text-align:center;">
+    <div class="container" style="max-width:800px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:28px;">
+        <img src="/logo.png" alt="GonoPBX" style="height:72px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.1));" />
+        <div class="ha-hero-plus" style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+          <span style="font-size:1.5rem;color:#18bcf2;font-weight:700;">+</span>
+        </div>
+        <img src="/homeassistant-logo.png" alt="Home Assistant" style="height:72px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.1));" />
       </div>
-      <h1 style="font-size:2.4rem;font-weight:800;margin-bottom:12px;">GonoPBX &amp; Home Assistant</h1>
-      <p style="font-size:1.15rem;color:#4a5568;max-width:640px;margin:0 auto;">
-        Integriere deine Telefonanlage in dein Smart Home &ndash; mit Sensoren, Events und Services.
+      <span style="display:inline-block;background:#18bcf2;color:#fff;padding:6px 20px;border-radius:24px;font-size:0.85rem;font-weight:700;letter-spacing:0.02em;margin-bottom:20px;">Works with Home Assistant</span>
+      <h1 class="ha-hero-title" style="font-size:2.6rem;font-weight:800;margin-bottom:16px;line-height:1.2;">Telefonanlage trifft Smart Home</h1>
+      <p class="ha-hero-desc" style="font-size:1.2rem;color:#4a5568;max-width:640px;margin:0 auto 28px;line-height:1.7;">
+        Verbinde GonoPBX mit Home Assistant &ndash; Anrufstatus als Sensor,
+        Echtzeit-Events per MQTT und Anrufe direkt aus deinem HA-Dashboard starten.
       </p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <span class="ha-hero-pill" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;padding:8px 16px;border-radius:10px;font-size:0.88rem;color:#4a5568;font-weight:500;">
+          <span style="color:#38a169;font-weight:700;">&#10003;</span> Sensoren &amp; Binary Sensors
+        </span>
+        <span class="ha-hero-pill" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;padding:8px 16px;border-radius:10px;font-size:0.88rem;color:#4a5568;font-weight:500;">
+          <span style="color:#38a169;font-weight:700;">&#10003;</span> MQTT Echtzeit-Events
+        </span>
+        <span class="ha-hero-pill" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;padding:8px 16px;border-radius:10px;font-size:0.88rem;color:#4a5568;font-weight:500;">
+          <span style="color:#38a169;font-weight:700;">&#10003;</span> Anrufe &amp; Rufumleitungen steuern
+        </span>
+      </div>
     </div>
   </section>
 
@@ -248,7 +263,7 @@ data:
         <p>GonoPBX ver&ouml;ffentlicht folgende MQTT-Topics:</p>
 
         <div style="overflow-x:auto;">
-          <table style="width:100%;border-collapse:collapse;font-size:0.9rem;margin:16px 0;">
+          <table class="mqtt-table" style="width:100%;border-collapse:collapse;font-size:0.9rem;margin:16px 0;">
             <thead>
               <tr style="background:#f7fafc;border-bottom:2px solid #e2e8f0;">
                 <th style="text-align:left;padding:10px 14px;font-weight:600;">Topic</th>
