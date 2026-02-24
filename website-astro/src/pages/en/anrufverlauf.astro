@@ -1,0 +1,155 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Call History - Call Detail Records - GonoPBX" description="GonoPBX call history: full CDR with filters by source, destination, and status. Statistics and call history at a glance." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/anrufverlauf" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/anrufverlauf" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/anrufverlauf" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to overview
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Core capability</span>
+        </div>
+        <h1>Call History – All Calls at a Glance</h1>
+      </div>
+
+      <div class="blog-article-content">
+        <p>
+          The call history shows <strong>every inbound and outbound call</strong> with
+          timestamp, source, destination, duration, and status. Filterable, searchable,
+          and with statistics at a glance.
+        </p>
+
+        <h2>Features</h2>
+
+        <ul>
+          <li><strong>Complete CDR</strong> – Call Detail Records with all relevant fields</li>
+          <li><strong>Filters</strong> – Filter by source, destination, status (answered, missed, busy)</li>
+          <li><strong>Date range</strong> – Narrow calls by time period</li>
+          <li><strong>Statistics</strong> – Call count, average duration, success rate</li>
+          <li><strong>Direction</strong> – Distinguish inbound, outbound, and internal calls</li>
+          <li><strong>Pagination</strong> – Fast even with thousands of entries</li>
+        </ul>
+
+        <h2>Screenshot</h2>
+
+        <div style="margin:32px 0;">
+          <img src="/feature-anrufverlauf.png" alt="Call history in GonoPBX" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">Call history with filters and statistics</p>
+        </div>
+
+        <h2>How does it work?</h2>
+
+        <p>
+          Asterisk writes each call as a CDR entry into PostgreSQL.
+          The backend reads this data and exposes it via the API.
+          The frontend renders it in a sortable table with filters.
+        </p>
+
+        <ul>
+          <li><strong>PostgreSQL-based</strong> – CDRs persistently stored in the database</li>
+          <li><strong>Near real time</strong> – New calls appear right after the call ends</li>
+          <li><strong>Exportable</strong> – Data can be accessed via the API</li>
+        </ul>
+
+        <h2>Status types</h2>
+
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Status</th>
+              <th style="padding:12px 16px;color:#4a5568;">Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><span style="color:#38a169;">&#9679;</span> Answered</td>
+              <td style="padding:12px 16px;">Call was answered and connected</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><span style="color:#e53e3e;">&#9679;</span> Missed</td>
+              <td style="padding:12px 16px;">Call was not answered (No Answer)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><span style="color:#ed8936;">&#9679;</span> Busy</td>
+              <td style="padding:12px 16px;">Extension was busy</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;"><span style="color:#718096;">&#9679;</span> Failed</td>
+              <td style="padding:12px 16px;">Connection could not be established</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Available since the first release.</strong>
+            The call history keeps growing with new filters and statistics in each release.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

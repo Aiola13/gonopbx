@@ -1,0 +1,567 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Admin Manual - GonoPBX" description="Practical admin manual for GonoPBX. Step-by-step guides for extensions, SIP trunks, DIDs, voicemail, security, and more." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/handbuch" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/handbuch" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/handbuch" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to homepage
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Documentation</span>
+          <span>Admin Manual</span>
+        </div>
+        <h1>Admin Manual</h1>
+        <p style="color:#718096;margin-top:8px;">Step-by-step guides for the most important tasks in GonoPBX.</p>
+        <div class="hero-buttons" style="justify-content:center;margin:24px 0 0 0;">
+          <a href="/admin-handbuch.pdf" class="btn-primary" download>Manual (PDF)</a>
+          <a href="/admin-handbuch.md" class="btn-secondary" download>Download Markdown</a>
+        </div>
+      </div>
+
+      <div class="blog-article-content">
+
+        <!-- Table of contents -->
+        <div class="blog-info-box">
+          <p><strong>Table of contents</strong></p>
+          <ol style="margin:12px 0 0 0;padding-left:20px;line-height:2;">
+            <li><a href="#first-steps">First steps after installation</a></li>
+            <li><a href="#create-extension">Create an extension</a></li>
+            <li><a href="#sip-trunk">Configure a SIP trunk</a></li>
+            <li><a href="#dids">Assign DIDs</a></li>
+            <li><a href="#call-forwarding">Configure call forwarding</a></li>
+            <li><a href="#voicemail">Set up voicemail</a></li>
+            <li><a href="#users">Create users</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#sip-debug">Use SIP Debug</a></li>
+            <li><a href="#update">Run a system update</a></li>
+          </ol>
+        </div>
+
+        <!-- Chapter 1 -->
+        <h2 id="first-steps">1. First steps after installation</h2>
+
+        <p>
+          After installation with the installer (<code>./install.sh</code>), GonoPBX is ready to use.
+          The installer shows the admin credentials at the end.
+        </p>
+
+        <h3>Login</h3>
+        <ol>
+          <li>Open your browser and go to <code>https://your-server-ip:3000</code></li>
+          <li>Log in with username <strong>admin</strong> and the generated password</li>
+          <li>After login you land on the <strong>Dashboard</strong></li>
+        </ol>
+
+        <h3>Dashboard overview</h3>
+        <p>The dashboard shows at a glance:</p>
+        <ul>
+          <li><strong>Asterisk status</strong> – Whether the PBX service is running and which version is installed</li>
+          <li><strong>Registered endpoints</strong> – Which phones/softphones are connected</li>
+          <li><strong>Active lines</strong> – SIP trunk status (registered/not registered)</li>
+          <li><strong>Recent calls</strong> – Latest inbound and outbound calls</li>
+        </ul>
+
+        <h3>Most important menu items</h3>
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Menu</th>
+              <th style="padding:12px 16px;color:#4a5568;">Function</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>Dashboard</strong></td>
+              <td style="padding:12px 16px;">Live overview of the system</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>DIDs</strong></td>
+              <td style="padding:12px 16px;">Manage inbound numbers (DIDs) and assignments</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>Call Forwarding</strong></td>
+              <td style="padding:12px 16px;">Configure forwarding per extension</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>Voicemail</strong></td>
+              <td style="padding:12px 16px;">Listen to and manage voicemail messages</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>Call History</strong></td>
+              <td style="padding:12px 16px;">Call Detail Records with filters and statistics</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>SIP Debug</strong></td>
+              <td style="padding:12px 16px;">Analyze live SIP messages in the browser</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;"><strong>Settings</strong></td>
+              <td style="padding:12px 16px;">Extensions, trunks, users, email, audio, security, server</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Chapter 2 -->
+        <h2 id="create-extension">2. Create an extension</h2>
+
+        <p>
+          Extensions are SIP accounts assigned to phones or softphones.
+          Each extension has its own number, SIP password, and caller ID.
+        </p>
+
+        <h3>Create a new extension</h3>
+        <ol>
+          <li>Go to <strong>Settings → Extensions</strong></li>
+          <li>Click <strong>“New extension”</strong></li>
+          <li>Fill in the fields:
+            <ul>
+              <li><strong>Number</strong> – e.g., 1001, 1002 (must be unique)</li>
+              <li><strong>Name</strong> – e.g., “Office” or “Max Mustermann”</li>
+              <li><strong>Password</strong> – SIP password (auto-generated, can be changed)</li>
+              <li><strong>Caller ID</strong> – Display name for internal calls</li>
+            </ul>
+          </li>
+          <li>Click <strong>“Save”</strong></li>
+        </ol>
+
+        <h3>Configure a softphone or handset</h3>
+        <p>Set up your device with these values:</p>
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Field</th>
+              <th style="padding:12px 16px;color:#4a5568;">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">SIP server</td>
+              <td style="padding:12px 16px;">IP address of your GonoPBX server</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Username</td>
+              <td style="padding:12px 16px;">Extension number (e.g., 1001)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Password</td>
+              <td style="padding:12px 16px;">SIP password of the extension</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Transport</td>
+              <td style="padding:12px 16px;">UDP (default port 5060)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Tip:</strong> Registration status is shown live in the dashboard and under Settings → Extensions
+            (green dot = registered).
+          </p>
+        </div>
+
+        <!-- Chapter 3 -->
+        <h2 id="sip-trunk">3. Configure a SIP trunk</h2>
+
+        <p>
+          A SIP trunk connects your PBX to a SIP provider,
+          allowing calls via the public telephone network.
+        </p>
+
+        <h3>Create a new trunk</h3>
+        <ol>
+          <li>Go to <strong>Settings → Lines</strong></li>
+          <li>Click <strong>“New trunk”</strong></li>
+          <li>Enter the provider data:
+            <ul>
+              <li><strong>Name</strong> – e.g., “Plusnet” or “sipgate”</li>
+              <li><strong>SIP server</strong> – Registrar address of the provider</li>
+              <li><strong>Username</strong> – SIP username from the provider</li>
+              <li><strong>Password</strong> – SIP password from the provider</li>
+            </ul>
+          </li>
+          <li>Click <strong>“Save”</strong></li>
+        </ol>
+
+        <h3>Check registration status</h3>
+        <p>
+          After saving, GonoPBX registers with the provider automatically.
+          You can see the status:
+        </p>
+        <ul>
+          <li>On the <strong>Dashboard</strong> under “Active lines”</li>
+          <li>Under <strong>Settings → Lines</strong> (green = registered, red = error)</li>
+        </ul>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Tip:</strong> If registration fails, verify the credentials
+            and make sure SIP port 5060/UDP is open in your firewall.
+            Use <a href="#sip-debug">SIP Debug</a> for troubleshooting.
+          </p>
+        </div>
+
+        <!-- Chapter 4 -->
+        <h2 id="dids">4. Assign DIDs</h2>
+
+        <p>
+          Inbound numbers (DIDs) must be assigned to extensions
+          so calls are routed to the correct phones.
+        </p>
+
+        <h3>Import DIDs</h3>
+        <ol>
+          <li>Go to <strong>DIDs</strong> in the main menu</li>
+          <li>Click <strong>“Add DID”</strong></li>
+          <li>Enter the number in <code>+49xxx</code> format</li>
+          <li>Select the assigned <strong>trunk</strong></li>
+        </ol>
+
+        <h3>Assign a DID to an extension</h3>
+        <ol>
+          <li>Select the desired DID in the list</li>
+          <li>Assign it to an <strong>extension</strong> via the dropdown</li>
+          <li>The change takes effect immediately</li>
+        </ol>
+
+        <h3>Configure outbound caller ID</h3>
+        <p>
+          Under <strong>Settings → Extensions</strong> you can define per extension
+          which DID is shown for outbound calls. Optionally, the
+          <code>P-Asserted-Identity</code> header can be used for providers that require it.
+        </p>
+
+        <!-- Chapter 5 -->
+        <h2 id="call-forwarding">5. Configure call forwarding</h2>
+
+        <p>
+          Call forwarding sends inbound calls to other destinations —
+          for example to a mobile phone, another extension, or voicemail.
+        </p>
+
+        <h3>Forwarding types</h3>
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Type</th>
+              <th style="padding:12px 16px;color:#4a5568;">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>Immediate</strong></td>
+              <td style="padding:12px 16px;">All calls are forwarded immediately without ringing</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;"><strong>Busy</strong></td>
+              <td style="padding:12px 16px;">Forward only when the extension is busy</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;"><strong>No Answer</strong></td>
+              <td style="padding:12px 16px;">Forward after a set number of rings (timeout)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Set up call forwarding</h3>
+        <ol>
+          <li>Go to <strong>Call Forwarding</strong> in the main menu</li>
+          <li>Select the <strong>extension</strong> you want to configure</li>
+          <li>Select the <strong>type</strong> (Immediate, Busy, or No Answer)</li>
+          <li>Enter the <strong>destination</strong> – an internal extension (e.g., <code>1002</code>) or an external number (e.g., <code>0171xxxxxxx</code>)</li>
+          <li>Enable forwarding via the <strong>toggle</strong></li>
+        </ol>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Tip:</strong> You can configure multiple forwarding types at once.
+            Example: No Answer → voicemail and Busy → mobile phone.
+          </p>
+        </div>
+
+        <!-- Chapter 6 -->
+        <h2 id="voicemail">6. Set up voicemail</h2>
+
+        <p>
+          Voicemail lets callers leave a message when an extension is not reachable.
+          Messages can be delivered via email.
+        </p>
+
+        <h3>Configure SMTP server</h3>
+        <p>To enable voicemail notifications, configure an SMTP server first:</p>
+        <ol>
+          <li>Go to <strong>Settings → Email</strong></li>
+          <li>Enter the SMTP data:
+            <ul>
+              <li><strong>SMTP server</strong> – e.g., <code>smtp.gmail.com</code></li>
+              <li><strong>Port</strong> – e.g., <code>587</code> (TLS) or <code>465</code> (SSL)</li>
+              <li><strong>Username</strong> and <strong>Password</strong></li>
+              <li><strong>Sender address</strong></li>
+            </ul>
+          </li>
+          <li>Click <strong>“Send test email”</strong> to verify the configuration</li>
+        </ol>
+
+        <h3>Enable voicemail per extension</h3>
+        <ol>
+          <li>Go to <strong>Settings → Extensions</strong></li>
+          <li>Edit the desired extension</li>
+          <li>Enable <strong>Voicemail</strong></li>
+          <li>Set a <strong>PIN</strong> (for phone access to the mailbox)</li>
+          <li>Enter the <strong>email address</strong> for notifications</li>
+        </ol>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Note:</strong> Voicemails can also be listened to and managed
+            directly in the web GUI under <strong>Voicemail</strong> in the main menu.
+          </p>
+        </div>
+
+        <!-- Chapter 7 -->
+        <h2 id="users">7. Create users</h2>
+
+        <p>
+          GonoPBX supports multiple users with different roles.
+          Admins have full access, regular users see only their own extension.
+        </p>
+
+        <h3>Create a new user</h3>
+        <ol>
+          <li>Go to <strong>Settings → Users</strong></li>
+          <li>Click <strong>“New user”</strong></li>
+          <li>Fill in the fields:
+            <ul>
+              <li><strong>Username</strong> – Login name</li>
+              <li><strong>Password</strong> – Automatically generated</li>
+              <li><strong>Role</strong> – <code>admin</code> or <code>user</code></li>
+              <li><strong>Extension</strong> – Assign to an existing extension</li>
+            </ul>
+          </li>
+          <li>Click <strong>“Save”</strong></li>
+        </ol>
+
+        <h3>Roles at a glance</h3>
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Area</th>
+              <th style="padding:12px 16px;color:#4a5568;">Admin</th>
+              <th style="padding:12px 16px;color:#4a5568;">User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Dashboard</td>
+              <td style="padding:12px 16px;">Full</td>
+              <td style="padding:12px 16px;">Limited</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Settings</td>
+              <td style="padding:12px 16px;">All tabs</td>
+              <td style="padding:12px 16px;">No access</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Call history</td>
+              <td style="padding:12px 16px;">All calls</td>
+              <td style="padding:12px 16px;">Own only</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Voicemail</td>
+              <td style="padding:12px 16px;">All mailboxes</td>
+              <td style="padding:12px 16px;">Own only</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Chapter 8 -->
+        <h2 id="security">8. Security</h2>
+
+        <p>
+          GonoPBX provides multiple security features to protect your PBX
+          from unauthorized access and abuse.
+        </p>
+
+        <h3>IP whitelist for SIP</h3>
+        <ol>
+          <li>Go to <strong>Settings → Security</strong></li>
+          <li>Under <strong>“IP whitelist”</strong> add IP addresses or CIDR ranges</li>
+          <li>Only allowed IPs can register as SIP endpoints</li>
+        </ol>
+
+        <h3>Fail2Ban</h3>
+        <p>
+          Fail2Ban protects against brute force attacks by banning IPs after
+          too many failed login attempts.
+        </p>
+        <ul>
+          <li><strong>Jails</strong> – Overview of active Fail2Ban jails (e.g., <code>asterisk</code>)</li>
+          <li><strong>Active bans</strong> – View currently banned IP addresses</li>
+          <li><strong>Unban</strong> – Unblock a banned IP with one click</li>
+        </ul>
+
+        <h3>Password strength checks</h3>
+        <p>
+          Under <strong>Settings → Security</strong> GonoPBX shows an overview
+          of extensions with weak SIP passwords. Weak passwords are marked
+          in red and should be changed immediately.
+        </p>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Important:</strong> Always use strong, randomly generated SIP passwords.
+            Weak passwords are the most common entry point for SIP abuse (toll fraud).
+          </p>
+        </div>
+
+        <!-- Chapter 9 -->
+        <h2 id="sip-debug">9. Use SIP Debug</h2>
+
+        <p>
+          The built-in SIP Debug shows all SIP messages in real time —
+          directly in the browser, without SSH.
+        </p>
+
+        <h3>Start capture</h3>
+        <ol>
+          <li>Go to <strong>SIP Debug</strong> in the main menu</li>
+          <li>Click <strong>“Start capture”</strong></li>
+          <li>Make the problematic call</li>
+          <li>Stop the capture</li>
+        </ol>
+
+        <h3>Read SIP messages</h3>
+        <p>
+          Recorded SIP messages are grouped by <strong>Call-ID</strong>.
+          Click an entry to view the full SIP text:
+        </p>
+        <ul>
+          <li><strong>INVITE</strong> – Call setup (contains From, To, SDP)</li>
+          <li><strong>100 Trying / 180 Ringing / 200 OK</strong> – Responses from the destination</li>
+          <li><strong>BYE</strong> – Call termination</li>
+          <li><strong>REGISTER</strong> – Registration attempts</li>
+        </ul>
+
+        <h3>Diagnose common issues</h3>
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Symptom</th>
+              <th style="padding:12px 16px;color:#4a5568;">What to look for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">No ringing</td>
+              <td style="padding:12px 16px;">Does an INVITE arrive? Does the destination respond with 180?</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">One-way audio</td>
+              <td style="padding:12px 16px;">Check SDP – do IPs and ports match?</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Registration fails</td>
+              <td style="padding:12px 16px;">REGISTER → 401 → REGISTER with auth → expect 200 OK</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Call drops</td>
+              <td style="padding:12px 16px;">Search for BYE – who ends the call and why?</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Chapter 10 -->
+        <h2 id="update">10. Run a system update</h2>
+
+        <p>
+          GonoPBX can be updated either via the web GUI or manually via the command line.
+        </p>
+
+        <h3>Via the web GUI</h3>
+        <ol>
+          <li>Go to <strong>Settings → Server</strong></li>
+          <li>Under <strong>“Update”</strong> you can see if a new version is available</li>
+          <li>Click <strong>“Install update”</strong></li>
+          <li>GonoPBX restarts automatically</li>
+        </ol>
+
+        <h3>Manually via command line</h3>
+        <div style="background:#1a202c;color:#e2e8f0;padding:20px 24px;border-radius:8px;margin:24px 0;font-family:monospace;font-size:0.95rem;overflow-x:auto;">
+          <span style="color:#68d391;">$</span> cd /root/gonopbx<br/>
+          <span style="color:#68d391;">$</span> git pull<br/>
+          <span style="color:#68d391;">$</span> docker compose up -d --build
+        </div>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Note:</strong> Updates restart the containers. Active calls will be interrupted.
+            Run updates outside business hours when possible.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

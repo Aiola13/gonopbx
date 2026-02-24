@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Contact - GonoPBX" description="Contact the GonoPBX project via email or GitHub. Questions, feedback, and feature ideas are welcome." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/kontakt" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/kontakt" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/kontakt" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section style="padding:80px 0;min-height:70vh;">
+    <div class="container" style="max-width:640px;text-align:center;">
+      <h1 style="font-size:2.4rem;font-weight:800;margin-bottom:16px;">Contact</h1>
+      <p style="font-size:1.1rem;color:#718096;margin-bottom:48px;">
+        Have a question, an idea, or feedback? I am happy to hear from you.
+      </p>
+
+      <div class="contact-cards">
+        <a href="#" class="contact-card" id="emailCard">
+          <div class="contact-icon" style="background:#ebf8ff;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3182ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4l-10 8L2 4"/></svg>
+          </div>
+          <h3>Email</h3>
+          <p class="contact-value" id="emailValue">Click to reveal</p>
+          <p class="contact-desc">For questions, feedback, and ideas</p>
+        </a>
+
+        <a href="https://github.com/ankaios76/gonopbx/issues" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon" style="background:#f0fff4;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#38a169" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+          </div>
+          <h3>GitHub Issues</h3>
+          <p class="contact-value">Create an issue</p>
+          <p class="contact-desc">Report bugs and propose features</p>
+        </a>
+
+        <a href="https://github.com/ankaios76/gonopbx/discussions" target="_blank" rel="noopener" class="contact-card">
+          <div class="contact-icon" style="background:#faf5ff;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#805ad5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>GitHub Discussions</h3>
+          <p class="contact-value">Start a discussion</p>
+          <p class="contact-desc">Ask questions and discuss ideas</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+
+    // Simple email obfuscation against bots
+    const card = document.getElementById('emailCard');
+    const val = document.getElementById('emailValue');
+    const user = 'mail';
+    const domain = 'gonobby.de';
+    card?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const addr = user + '@' + domain;
+      val.textContent = addr;
+      card.href = 'mailto:' + addr;
+      window.location.href = 'mailto:' + addr;
+    });
+  </script>
+
+</Layout>
+
+<style>
+  .contact-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    text-align: center;
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    transition: all 0.3s;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .contact-card:hover {
+    border-color: #bee3f8;
+    box-shadow: 0 8px 24px rgba(49,130,206,0.08);
+    transform: translateY(-4px);
+    color: inherit;
+  }
+
+  .contact-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+
+  .contact-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1a202c;
+  }
+
+  .contact-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #3182ce;
+    margin-bottom: 8px;
+  }
+
+  .contact-desc {
+    font-size: 0.9rem;
+    color: #718096;
+  }
+
+  @media (max-width: 900px) {
+    .contact-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

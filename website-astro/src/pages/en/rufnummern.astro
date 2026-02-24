@@ -1,0 +1,125 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="DID Assignment - Number Management - GonoPBX" description="GonoPBX DIDs: assign inbound numbers to extensions and manage number blocks per trunk." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/rufnummern" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/rufnummern" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/rufnummern" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to overview
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Core capability</span>
+        </div>
+        <h1>DID Assignment – Manage Inbound Numbers Flexibly</h1>
+      </div>
+
+      <div class="blog-article-content">
+        <p>
+          With DID assignment you define <strong>which inbound number routes to which extension</strong>.
+          Number blocks from your provider are managed per trunk and can be distributed
+          freely across extensions.
+        </p>
+
+        <h2>Features</h2>
+
+        <ul>
+          <li><strong>DID assignment</strong> – Assign each external number to an extension</li>
+          <li><strong>Number blocks</strong> – Import full number ranges per trunk</li>
+          <li><strong>Multiple assignments</strong> – One extension can receive multiple numbers</li>
+          <li><strong>Trunk mapping</strong> – Numbers are tied to a specific trunk</li>
+          <li><strong>Automatic dialplan</strong> – <code>extensions.conf</code> is regenerated on every change</li>
+        </ul>
+
+        <h2>Screenshot</h2>
+
+        <div style="margin:32px 0;">
+          <img src="/feature-rufnummern.png" alt="DID assignment in GonoPBX" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">DIDs per trunk with extension assignment</p>
+        </div>
+
+        <h2>How does it work?</h2>
+
+        <p>
+          When a call arrives on a DID, the dialplan looks up the assigned extension
+          and routes the call there. <code>extensions.conf</code> is regenerated on every change
+          and loaded via <code>dialplan reload</code>.
+        </p>
+
+        <ul>
+          <li><strong>Inbound</strong> – Provider sends INVITE with the dialed DID → GonoPBX routes to the extension</li>
+          <li><strong>Outbound</strong> – Extension dials external number → GonoPBX sends via the matching trunk</li>
+          <li><strong>Hot reload</strong> – Dialplan changes apply immediately without restart</li>
+        </ul>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Available since the first release.</strong>
+            DID assignment is central for routing inbound and outbound calls.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

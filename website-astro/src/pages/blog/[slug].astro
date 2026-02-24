@@ -2,13 +2,23 @@
 import Layout from '../../layouts/Layout.astro';
 import Giscus from '../../components/Giscus.astro';
 import { fetchPosts } from '../../lib/directus';
+import path from 'node:path';
 
 export async function getStaticPaths() {
-  const posts = await fetchPosts();
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
+  const staticPages = Object.keys(import.meta.glob('./*.astro'));
+  const staticSlugs = new Set(
+    staticPages
+      .map((entry) => path.basename(entry, '.astro'))
+      .filter((slug) => slug !== '[slug]' && slug !== 'index')
+  );
+
+  const posts = await fetchPosts({ lang: 'de', locale: 'de-DE' });
+  return posts
+    .filter((post) => post?.slug && !staticSlugs.has(post.slug))
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
 }
 
 const { post } = Astro.props as { post: Awaited<ReturnType<typeof fetchPosts>>[number] };
@@ -32,10 +42,14 @@ const description = post.excerpt || post.title;
         <li><a href="/#features">Features</a></li>
         <li><a href="/#screenshots">Screenshots</a></li>
         <li><a href="/#techstack">Technologie</a></li>
-        <li><a href="/#installation">Installation</a></li>
         <li><a href="/release-notes">Release Notes</a></li>
         <li><a href="/blog/">Blog</a></li>
-        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>        <li class="nav-lang">
+          <a href="/" class="lang-link active">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/" class="lang-link">EN</a>
+        </li>
+
         <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
       </ul>
     </div>
@@ -65,6 +79,19 @@ const description = post.excerpt || post.title;
 
       <div class="blog-article-content" set:html={post.content || ''}></div>
 
+      <!-- Coffee CTA -->
+      <div class="coffee-cta">
+        <span class="coffee-cta-icon">&#9749;</span>
+        <div class="coffee-cta-text">
+          <strong>Gef&auml;llt dir dieser Beitrag?</strong>
+          <span>GonoPBX ist Open Source und kostenlos. Unterst&uuml;tze die Weiterentwicklung mit einem Kaffee.</span>
+        </div>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          Buy me a Coffee
+        </a>
+      </div>
+
       <Giscus />
     </div>
   </section>
@@ -75,6 +102,7 @@ const description = post.excerpt || post.title;
       <ul class="footer-links">
         <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
         <li><a href="https://demo.gonopbx.de">Live-Demo</a></li>
+        <li><a href="/unterstuetzen">Unterst&uuml;tzen</a></li>
         <li><a href="/impressum">Impressum</a></li>
         <li><a href="/datenschutz">Datenschutz</a></li>
       </ul>

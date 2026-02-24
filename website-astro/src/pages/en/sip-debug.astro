@@ -1,0 +1,172 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="SIP Debug - Live SIP Messages in the Browser - GonoPBX" description="GonoPBX SIP Debug: view all SIP messages (INVITE, BYE, 200 OK) live in the browser. Grouped by Call-ID with expandable raw SIP text. No SSH, no CLI." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/sip-debug" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/sip-debug" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/sip-debug" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to overview
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Since v1.7.0</span>
+        </div>
+        <h1>SIP Debug – Live SIP Messages in the Browser</h1>
+      </div>
+
+      <div class="blog-article-content">
+        <p>
+          The SIP Debug page shows <strong>all inbound and outbound SIP messages</strong>
+          directly in the web UI – no SSH, no Asterisk CLI, and no external tools like
+          <code>sngrep</code> or <code>Wireshark</code>.
+        </p>
+
+        <h2>Features</h2>
+
+        <ul>
+          <li><strong>Toggle capture</strong> – Enable/disable recording with a switch</li>
+          <li><strong>Call list</strong> – All SIP dialogs grouped by Call-ID with timestamp, sender, receiver, and method</li>
+          <li><strong>SIP timeline</strong> – Click a call to view messages chronologically</li>
+          <li><strong>Direction arrows</strong> – <span style="color:#3182ce;">→ Sent</span> (blue) and <span style="color:#38a169;">← Received</span> (green)</li>
+          <li><strong>Color coding</strong> – Methods blue, 2xx responses green, 4xx/5xx red, 1xx yellow</li>
+          <li><strong>Expandable raw SIP text</strong> – Full SIP headers and body in monospace</li>
+          <li><strong>Auto-refresh</strong> – Updates every 10 seconds when capture is active</li>
+        </ul>
+
+        <h2>Screenshots</h2>
+
+        <div style="margin:32px 0;">
+          <img src="/sip-debug-detail.png" alt="SIP Debug – call list with expanded SIP messages" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">SIP messages grouped by Call-ID with expandable raw SIP text</p>
+        </div>
+
+        <h2>How does it work technically?</h2>
+
+        <p>
+          SIP Debug uses Asterisk’s built-in <code>res_pjsip_history</code> module.
+          When enabled, SIP history is activated in Asterisk.
+          The backend polls every <strong>3 seconds</strong> via AMI (Asterisk Manager Interface)
+          for new entries and loads the full SIP text for each one.
+        </p>
+
+        <p>Messages are kept in memory – no database, no log files:</p>
+
+        <ul>
+          <li><strong>Max 2 hours</strong> retention – older messages are removed automatically</li>
+          <li><strong>Hard cap: 10,000 messages</strong> – prevents memory overflow under high traffic</li>
+          <li><strong>No disk I/O</strong> – everything in RAM, no performance impact on the PBX</li>
+        </ul>
+
+        <h2>Typical use cases</h2>
+
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Problem</th>
+              <th style="padding:12px 16px;color:#4a5568;">What to check</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Trunk does not register</td>
+              <td style="padding:12px 16px;">REGISTER → 401/403 responses, verify credentials</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Inbound call does not ring</td>
+              <td style="padding:12px 16px;">INVITE → 100 Trying / 180 Ringing sequence</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">One-way audio</td>
+              <td style="padding:12px 16px;">SDP body in INVITE/200 OK (media addresses, NAT)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Wrong caller ID</td>
+              <td style="padding:12px 16px;">From header and P-Asserted-Identity in outbound INVITE</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Call drops after 30s</td>
+              <td style="padding:12px 16px;">Missing ACK or session-timer headers</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Access</h2>
+
+        <p>
+          The SIP Debug page is available via the <strong>navigation</strong> in the GonoPBX web UI
+          (bug icon between FAQ and Settings). It is <strong>admin-only</strong> –
+          users with the “User” role will not see the menu item.
+        </p>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Available since version 1.7.0.</strong>
+            Update via <em>Settings → Server → Update</em> or manually with
+            <code>git pull &amp;&amp; docker compose up -d --build</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

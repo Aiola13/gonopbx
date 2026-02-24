@@ -67,10 +67,15 @@ import Layout from '../layouts/Layout.astro';
         <li><a href="#features">Features</a></li>
         <li><a href="#screenshots">Screenshots</a></li>
         <li><a href="#techstack">Technologie</a></li>
-        <li><a href="#installation">Installation</a></li>
         <li><a href="/release-notes">Release Notes</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/unterstuetzen">Unterst&uuml;tzen</a></li>        <li class="nav-lang">
+          <a href="/" class="lang-link active">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/" class="lang-link">EN</a>
+        </li>
+
         <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
       </ul>
     </div>
@@ -596,17 +601,42 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- Support -->
-  <section class="support-section" style="padding:64px 0;text-align:center;background:#f7fafc;border-top:1px solid #e2e8f0;">
-    <div class="container" style="max-width:560px;">
-      <p style="font-size:2rem;margin-bottom:16px;">&#9749;</p>
-      <h2 class="support-heading" style="font-size:1.5rem;font-weight:700;margin-bottom:12px;">Gef&auml;llt dir GonoPBX?</h2>
-      <p style="color:#4a5568;margin-bottom:24px;">
-        GonoPBX ist kostenlos und Open Source. Wenn du das Projekt unterst&uuml;tzen m&ouml;chtest, freue ich mich &uuml;ber einen Kaffee.
+  <section class="support-section" style="padding:80px 0;text-align:center;background:#f7fafc;border-top:1px solid #e2e8f0;">
+    <div class="container" style="max-width:800px;">
+      <p style="font-size:2.5rem;margin-bottom:16px;">&#9749;</p>
+      <h2 class="support-heading" style="font-size:2rem;font-weight:800;margin-bottom:16px;">GonoPBX unterst&uuml;tzen</h2>
+      <p style="color:#4a5568;margin-bottom:12px;font-size:1.1rem;line-height:1.7;">
+        GonoPBX ist ein Open-Source-Freizeitprojekt &ndash; kostenlos und werbefrei.
+        Wenn dir das Projekt gef&auml;llt, kannst du die Weiterentwicklung mit einem Kaffee unterst&uuml;tzen.
       </p>
-      <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-btn" style="display:inline-flex;align-items:center;gap:8px;background:#FFDD00;color:#000;padding:14px 28px;border-radius:10px;font-weight:600;font-size:1rem;transition:all 0.2s;text-decoration:none;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-        Buy me a Coffee
-      </a>
+      <p style="color:#718096;margin-bottom:40px;font-size:0.95rem;">
+        Dein Beitrag hilft bei Hosting, Domain-Kosten und motiviert zur Weiterentwicklung.
+      </p>
+      <div class="support-tier-grid">
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card">
+          <span class="support-tier-emoji">&#9749;</span>
+          <span class="support-tier-name">Kaffee</span>
+          <span class="support-tier-price">5 &euro;</span>
+          <span class="support-tier-desc">Ein Dankesch&ouml;n f&uuml;r die Arbeit</span>
+        </a>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card support-tier-highlight">
+          <span class="support-tier-emoji">&#11088;</span>
+          <span class="support-tier-name">Supporter</span>
+          <span class="support-tier-price">10 &euro;</span>
+          <span class="support-tier-desc">Hosting &amp; Domain f&uuml;r einen Monat</span>
+        </a>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card">
+          <span class="support-tier-emoji">&#128640;</span>
+          <span class="support-tier-name">Super-Fan</span>
+          <span class="support-tier-price">25 &euro;</span>
+          <span class="support-tier-desc">Treibt die Entwicklung richtig voran</span>
+        </a>
+      </div>
+      <p style="margin-top:32px;">
+        <a href="/unterstuetzen" style="color:#3182ce;font-weight:600;font-size:0.95rem;">
+          Mehr erfahren &amp; andere Wege zu helfen &rarr;
+        </a>
+      </p>
     </div>
   </section>
 
@@ -616,6 +646,7 @@ import Layout from '../layouts/Layout.astro';
       <ul class="footer-links">
         <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
         <li><a href="https://demo.gonopbx.de">Live-Demo</a></li>
+        <li><a href="/unterstuetzen">Unterst&uuml;tzen</a></li>
         <li><a href="/impressum">Impressum</a></li>
         <li><a href="/datenschutz">Datenschutz</a></li>
       </ul>

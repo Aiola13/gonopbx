@@ -1,0 +1,145 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { fetchPosts } from '../../../lib/directus';
+
+const posts = await fetchPosts({ lang: 'en', locale: 'en-US' });
+---
+
+<Layout title="Blog - GonoPBX" description="News, feature updates, and tips around GonoPBX. Stay up to date with the open-source PBX." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog List -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="section-header">
+        <h1>Blog</h1>
+        <p>News and updates from GonoPBX development.</p>
+      </div>
+
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-tag">Release</span>
+              <span>February 18, 2026</span>
+            </div>
+            <h2><a href="/en/blog/v2-1-0-telekom-allip">v2.1.0 – Telekom All-IP Residential Support</a></h2>
+            <p class="blog-excerpt">
+              New provider profile for Telekom residential lines (MagentaZuhause).
+              P-Preferred-Identity header, TCP transport, and a dedicated From-User field for the line number.
+            </p>
+            <a href="/en/blog/v2-1-0-telekom-allip" class="blog-read-more">
+              Read more
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-tag">Release</span>
+              <span>February 13, 2026</span>
+            </div>
+            <h2><a href="/en/blog/v2-0-0-release">v2.0.0 – Phonebook, BLF, Ring Groups &amp; IVR Updates</a></h2>
+            <p class="blog-excerpt">
+              New phonebook (global &amp; per extension), BLF/pickup groups, ring groups with DID assignment,
+              and IVR improvements including upload, retries, and inbound DID mapping.
+            </p>
+            <a href="/en/blog/v2-0-0-release" class="blog-read-more">
+              Read more
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+        {posts.length === 0 ? (
+          <article class="blog-card">
+            <div class="blog-card-body">
+              <div class="blog-card-meta">
+                <span class="blog-card-tag">Info</span>
+                <span>—</span>
+              </div>
+              <h2>No posts yet</h2>
+              <p class="blog-excerpt">
+                New posts will appear here automatically once published.
+              </p>
+            </div>
+          </article>
+        ) : (
+          posts.map((post) => (
+            <article class="blog-card">
+              <div class="blog-card-body">
+                <div class="blog-card-meta">
+                  <span class="blog-card-tag">{post.category || 'Update'}</span>
+                  <span>{post.formatted_date || ''}</span>
+                </div>
+                <h2><a href={`/en/blog/${post.slug}`}>{post.title}</a></h2>
+                <p class="blog-excerpt">
+                  {post.excerpt || ''}
+                </p>
+                <a href={`/en/blog/${post.slug}`} class="blog-read-more">
+                  Read more
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </article>
+          ))
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle script -->
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

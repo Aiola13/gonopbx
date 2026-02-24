@@ -1,0 +1,263 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Giscus from '../../../components/Giscus.astro';
+---
+
+<Layout title="v2.1.0 – Telekom All-IP Residential Support - GonoPBX Blog" description="GonoPBX v2.1.0 adds support for Telekom All-IP residential lines (MagentaZuhause). P-Preferred-Identity, TCP transport, and tel.t-online.de registrar." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/v2-1-0-telekom-allip" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/v2-1-0-telekom-allip" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog Article -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/blog/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Blog
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Release</span>
+          <span>February 18, 2026</span>
+          <span>&middot;</span>
+          <span>v2.1.0</span>
+        </div>
+        <h1>v2.1.0 – Telekom All-IP Residential Line</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          GonoPBX now supports <strong>Telekom All-IP residential lines</strong>
+          (MagentaZuhause, MagentaEINS). Previously only the business products
+          (DeutschlandLAN SIP trunk, CompanyFlex) worked – now residential customers
+          can use their Telekom line with GonoPBX as well.
+        </p>
+
+        <h2>Why a separate profile?</h2>
+        <p>
+          Telekom residential and business lines differ in several
+          technical details. A simple copy of the DeutschlandLAN profile
+          would not work:
+        </p>
+        <table style="width:100%; border-collapse:collapse; margin:1.5em 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+              <th style="text-align:left; padding:0.5em;">Property</th>
+              <th style="text-align:left; padding:0.5em;">DeutschlandLAN (Business)</th>
+              <th style="text-align:left; padding:0.5em;">All-IP (Residential)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Registrar</td>
+              <td style="padding:0.5em;"><code>reg.sip-trunk.telekom.de</code></td>
+              <td style="padding:0.5em;"><code>tel.t-online.de</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">From domain</td>
+              <td style="padding:0.5em;"><code>sip-trunk.telekom.de</code></td>
+              <td style="padding:0.5em;"><code>tel.t-online.de</code></td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Username</td>
+              <td style="padding:0.5em;">Trunk login</td>
+              <td style="padding:0.5em;">Access number (16 digits)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">From user</td>
+              <td style="padding:0.5em;">–</td>
+              <td style="padding:0.5em;">Line number (E.164)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Outbound header</td>
+              <td style="padding:0.5em;">P-Asserted-Identity</td>
+              <td style="padding:0.5em;"><strong>P-Preferred-Identity</strong></td>
+            </tr>
+            <tr>
+              <td style="padding:0.5em;">Transport</td>
+              <td style="padding:0.5em;">TCP</td>
+              <td style="padding:0.5em;">TCP</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>What’s new?</h2>
+        <ul>
+          <li>
+            <strong>New provider “Telekom All-IP (Residential)”</strong><br/>
+            Selectable directly in the trunk dialog. Server, transport, and codecs
+            are configured automatically.
+          </li>
+          <li>
+            <strong>P-Preferred-Identity instead of P-Asserted-Identity</strong><br/>
+            Telekom residential lines require a <code>P-Preferred-Identity</code>
+            header for outbound calls. GonoPBX sets it automatically in the correct
+            format: <code>&lt;sip:+49NUMBER@tel.t-online.de&gt;</code>.
+          </li>
+          <li>
+            <strong>New “From-User / Line Number” field</strong><br/>
+            The line number in E.164 format (e.g. <code>+492211234567</code>) is
+            used as the From user in the SIP endpoint and as Contact user for registration –
+            separate from the auth username (access number).
+          </li>
+        </ul>
+
+        <h2>Setup</h2>
+        <p>
+          Under <strong>Lines → New line</strong> select the provider
+          <strong>“Telekom All-IP (Residential)”</strong> and fill in the
+          following fields:
+        </p>
+        <table style="width:100%; border-collapse:collapse; margin:1.5em 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;">
+              <th style="text-align:left; padding:0.5em;">Field</th>
+              <th style="text-align:left; padding:0.5em;">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Provider</td>
+              <td style="padding:0.5em;">Telekom All-IP (Residential)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Name</td>
+              <td style="padding:0.5em;">e.g. “Telekom Residential”</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Username</td>
+              <td style="padding:0.5em;">Telekom access number (16 digits)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">Password</td>
+              <td style="padding:0.5em;">Personal password</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:0.5em;">From-User / Line Number</td>
+              <td style="padding:0.5em;">E.164 e.g. <code>+492211234567</code></td>
+            </tr>
+            <tr>
+              <td style="padding:0.5em;">Number block</td>
+              <td style="padding:0.5em;">Your number(s)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Tip:</strong> The access number and personal password can be found
+            in your Telekom access data sent by letter or in the customer portal.
+          </p>
+        </div>
+
+        <h2>Technical details</h2>
+        <p>The following is configured automatically:</p>
+        <ul>
+          <li><strong>Registration:</strong> <code>sip:+49NUMBER@tel.t-online.de</code> (line number as Contact)</li>
+          <li><strong>Authentication:</strong> Access number + password</li>
+          <li><strong>Outbound:</strong> <code>P-Preferred-Identity: &lt;sip:+49NUMBER@tel.t-online.de&gt;</code></li>
+          <li><strong>Transport:</strong> TCP</li>
+          <li><strong>Codecs:</strong> g722, alaw</li>
+        </ul>
+
+        <h2>Install the update</h2>
+
+        <h3>Automatic (recommended)</h3>
+        <p>
+          In the GonoPBX web interface under <strong>Settings → Server → Update</strong>
+          click “Install update”.
+        </p>
+
+        <h3>Manual</h3>
+        <pre><code>cd /root/asterisk-pbx-gui
+git pull origin main
+docker compose up -d --build backend</code></pre>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Note:</strong> The database migration (new <code>from_user</code> field)
+            runs automatically on startup. No manual steps required.
+          </p>
+        </div>
+
+        <p>
+          You can find the full release notes on the
+          <a href="/en/release-notes" style="color:#3182ce;font-weight:600;">Release Notes page</a>
+          or directly on
+          <a href="https://github.com/ankaios76/gonopbx/releases/tag/v2.1.0" style="color:#3182ce;font-weight:600;" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+
+        <!-- Coffee CTA -->
+        <div class="coffee-cta">
+          <span class="coffee-cta-icon">&#9749;</span>
+          <div class="coffee-cta-text">
+            <strong>Enjoyed this post?</strong>
+            <span>GonoPBX is open source and free. Support ongoing development with a coffee.</span>
+          </div>
+          <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a Coffee
+          </a>
+        </div>
+
+        <Giscus />
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle script -->
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

@@ -1,0 +1,127 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Live Dashboard - Real-Time Overview - GonoPBX" description="GonoPBX live dashboard: Asterisk status, registered endpoints, active lines, and recent calls updated in real time via WebSocket." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/dashboard" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/dashboard" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/dashboard" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to overview
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Core capability</span>
+        </div>
+        <h1>Live Dashboard – Everything at a Glance</h1>
+      </div>
+
+      <div class="blog-article-content">
+        <p>
+          The dashboard is the <strong>first page after login</strong>.
+          It shows system status, registered endpoints, active lines,
+          and recent calls – all updated in real time via WebSocket.
+        </p>
+
+        <h2>Features</h2>
+
+        <ul>
+          <li><strong>Personal greeting</strong> – Welcome message with username and time</li>
+          <li><strong>System status</strong> – Asterisk version, uptime, and connection status</li>
+          <li><strong>Endpoints</strong> – All extensions with registration status (online/offline)</li>
+          <li><strong>Active lines</strong> – Trunks with registration status at the provider</li>
+          <li><strong>Recent calls</strong> – Latest inbound and outbound calls with status</li>
+          <li><strong>WebSocket updates</strong> – Live updates without page reload</li>
+        </ul>
+
+        <h2>Screenshot</h2>
+
+        <div style="margin:32px 0;">
+          <img src="/feature-dashboard.png" alt="Live dashboard in GonoPBX" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">Dashboard with system status, endpoints, and recent calls</p>
+        </div>
+
+        <h2>How does it work technically?</h2>
+
+        <p>
+          The dashboard uses a <strong>WebSocket connection</strong> to the backend.
+          The backend listens to AMI events (Asterisk Manager Interface) and
+          pushes changes instantly to all connected clients.
+        </p>
+
+        <ul>
+          <li><strong>WebSocket</strong> – Bidirectional real-time communication</li>
+          <li><strong>AMI events</strong> – PeerStatus, Newchannel, Hangup, and more</li>
+          <li><strong>No polling</strong> – Updates arrive instantly, not on timers</li>
+          <li><strong>Authenticated</strong> – WebSocket uses JWT tokens as query parameters</li>
+        </ul>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Available since the first release.</strong>
+            The dashboard was expanded with live WebSocket updates in v1.2.0.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

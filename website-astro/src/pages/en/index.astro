@@ -1,0 +1,746 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="GonoPBX - Modern Open-Source Phone System" description="GonoPBX is a modern, web-based management interface for Asterisk PBX. Open source, Docker-based, with SIP trunk management, voicemail, and a real-time dashboard." lang="en">
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "GonoPBX",
+        "applicationCategory": "CommunicationApplication",
+        "operatingSystem": "Linux",
+        "description": "Modern open-source web GUI for Asterisk PBX. Extensions, SIP trunks, call forwarding, voicemail, and real-time dashboard.",
+        "url": "https://gonopbx.de",
+        "image": "https://gonopbx.de/dashboard1.png",
+        "screenshot": "https://gonopbx.de/dashboard1.png",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Norbert Hengsteler",
+          "url": "https://github.com/ankaios76"
+        },
+        "license": "https://opensource.org/licenses/MIT",
+        "codeRepository": "https://github.com/ankaios76/gonopbx",
+        "programmingLanguage": ["Python", "TypeScript"],
+        "softwareRequirements": "Docker, Docker Compose"
+      },
+      {
+        "@type": "WebSite",
+        "name": "GonoPBX",
+        "url": "https://gonopbx.de",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://gonopbx.de/en/"
+          }
+        ]
+      }
+    ]
+  })} />
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#screenshots">Screenshots</a></li>
+        <li><a href="#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-badge">Open Source &middot; Self-Hosted &middot; Docker</span>
+      <h1>Your phone system.<br/><span>Modern management.</span></h1>
+      <p>
+        GonoPBX is a web-based management interface for Asterisk &ndash;
+        a side project that grows step by step.
+        Extensions, SIP trunks, call forwarding, voicemail, and call history &ndash;
+        all via an intuitive web GUI. The project is still evolving and
+        I am always open to new ideas &ndash; if you have a suggestion,
+        feel free to reach out. I will implement it as time allows.
+      </p>
+      <div class="hero-buttons">
+        <a href="https://demo.gonopbx.de" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Try Live Demo
+        </a>
+        <a href="#installation" class="btn-secondary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Install Now
+        </a>
+        <a href="/admin-handbuch.pdf" class="btn-secondary" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Manual (PDF)
+        </a>
+        <a href="/admin-handbuch.md" class="btn-secondary" download>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Manual (Markdown)
+        </a>
+      </div>
+      <a href="/en/homeassistant" class="hero-ha-badge">
+        <img src="/homeassistant-logo.png" alt="Home Assistant" />
+        <span class="hero-ha-text">
+          <strong>Works with Home Assistant</strong>
+          <span>Sensors, MQTT events &amp; call control from your smart home</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+      </a>
+      <div class="hero-screenshot">
+        <img src="/dashboard1.png" alt="GonoPBX Dashboard" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Teaser -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>New on the Blog</h2>
+        <p>The most important release at a glance.</p>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-card-body">
+            <div class="blog-card-meta">
+              <span class="blog-card-tag">Release</span>
+              <span>February 13, 2026</span>
+            </div>
+            <h2><a href="/en/blog/v2-0-0-release">v2.0.0 – Phonebook, BLF, Ring Groups &amp; IVR Updates</a></h2>
+            <p class="blog-excerpt">
+              New phonebook (global &amp; per extension), BLF/pickup groups, ring groups with DID assignment,
+              and IVR improvements including upload, retries, and inbound DID mapping.
+            </p>
+            <a href="/en/blog/v2-0-0-release" class="blog-read-more">
+              Read more
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Everything You Need</h2>
+        <p>Manage your entire phone system from one modern, central web interface.</p>
+      </div>
+
+      <div class="features-grid">
+        <a href="/en/nebenstellen" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#ebf8ff;">&#128222;</div>
+          <h3>Extensions <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Create, edit, and delete SIP accounts. Each extension with its own caller ID, context, and activation status.</p>
+        </a>
+
+        <a href="/en/sip-trunks" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#f0fff4;">&#128268;</div>
+          <h3>SIP Trunks <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Connect to SIP providers via registration or IP authentication. Built-in support for Plusnet IPfonie and more.</p>
+        </a>
+
+        <a href="/en/sip-debug" class="feature-card feature-highlight fade-in" style="text-decoration:none;color:inherit;">
+          <span class="feature-badge">New</span>
+          <div class="feature-icon" style="background:#fff5f7;">&#128269;</div>
+          <h3>SIP Debug <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Live view of SIP messages directly in the browser. Grouped by Call-ID, with expandable raw SIP text &ndash; no SSH needed.</p>
+        </a>
+
+        <a href="/en/rufnummern" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#faf5ff;">&#128224;</div>
+          <h3>DID Assignment <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Assign inbound numbers (DIDs) flexibly to extensions. Number block management per trunk.</p>
+        </a>
+
+        <a href="/en/rufumleitungen" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#fffaf0;">&#128260;</div>
+          <h3>Call Forwarding <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Immediate, busy, and no-answer forwarding per extension. Enable with a toggle.</p>
+        </a>
+
+        <a href="/en/voicemail" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#fff5f5;">&#128233;</div>
+          <h3>Voicemail <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Per-extension voicemail boxes with PIN, email notifications, and built-in audio player.</p>
+        </a>
+
+        <a href="/en/anrufverlauf" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#f0fff4;">&#128202;</div>
+          <h3>Call History <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Complete call detail records with filters by source, destination, and status. Statistics at a glance.</p>
+        </a>
+
+        <a href="/en/benutzer-rollen" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#ebf8ff;">&#128272;</div>
+          <h3>Users &amp; Roles <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Multi-user system with admin and user roles. JWT-based authentication.</p>
+        </a>
+
+        <a href="/en/dashboard" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#faf5ff;">&#128225;</div>
+          <h3>Live Dashboard <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Real-time overview: Asterisk status, registered endpoints, active lines, and recent calls via WebSocket.</p>
+        </a>
+
+        <a href="/en/outbound-caller-id" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#ebf8ff;">&#128244;</div>
+          <h3>Outbound Caller ID <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Choose which DID is shown for outbound calls per extension. Optional P-Asserted-Identity header.</p>
+        </a>
+
+        <a href="/en/docker-deployment" class="feature-card fade-in" style="text-decoration:none;color:inherit;">
+          <div class="feature-icon" style="background:#fffaf0;">&#128051;</div>
+          <h3>Docker Deployment <span style="font-size:0.7em;color:#3182ce;">&rarr;</span></h3>
+          <p>Full system ready in minutes with <code>docker compose up</code>. Includes an automated installer.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="13">0</div>
+          <div class="stat-label">Releases</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="30">0</div>
+          <div class="stat-label">Features</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="8">0</div>
+          <div class="stat-label">Technologies</div>
+        </div>
+        <div class="stat-item fade-in">
+          <div class="stat-number" data-target="100">0</div>
+          <div class="stat-label">% Open Source</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots -->
+  <section class="screenshots" id="screenshots">
+    <div class="container">
+      <div class="section-header">
+        <h2>A Look Inside</h2>
+        <p>See GonoPBX in action &ndash; from the live dashboard to server management.</p>
+      </div>
+
+      <div class="screenshot-item fade-in">
+        <div class="screenshot-text">
+          <h3>Live Dashboard</h3>
+          <p>
+            Everything important at a glance: personal greeting, system status,
+            registered endpoints, and recent calls &ndash; updated live via WebSocket.
+          </p>
+          <ul>
+            <li>Asterisk status and version</li>
+            <li>Trunks and extensions with numbers</li>
+            <li>Recent inbound and outbound calls</li>
+          </ul>
+        </div>
+        <div class="screenshot-img">
+          <img src="/dashboard1.png" alt="GonoPBX Live Dashboard" />
+        </div>
+      </div>
+
+      <div class="screenshot-item reverse fade-in">
+        <div class="screenshot-text">
+          <h3>Central Settings</h3>
+          <p>
+            All configuration areas in a clear tab layout:
+            extensions, lines, users, email, audio, security, and server.
+          </p>
+          <ul>
+            <li>Extensions with status and caller ID</li>
+            <li>Create new extensions in seconds</li>
+            <li>Automatic PJSIP configuration</li>
+          </ul>
+        </div>
+        <div class="screenshot-img">
+          <img src="/settings.png" alt="Settings Overview" />
+        </div>
+      </div>
+
+      <div class="screenshot-item fade-in">
+        <div class="screenshot-text">
+          <h3>User Management</h3>
+          <p>
+            Create new users with avatar, role, and extension assignment.
+            Credentials are sent automatically via email.
+          </p>
+          <ul>
+            <li>Admin and user roles</li>
+            <li>Avatar upload and extension assignment</li>
+            <li>Welcome email with credentials</li>
+          </ul>
+        </div>
+        <div class="screenshot-img">
+          <img src="/settings_newuser.png" alt="Create a new user" />
+        </div>
+      </div>
+
+      <div class="screenshot-item reverse fade-in">
+        <div class="screenshot-text">
+          <h3>Email &amp; Audio</h3>
+          <p>
+            Configure SMTP for voicemail notifications and set audio codecs globally &ndash;
+            individual extensions can override the settings.
+          </p>
+          <ul>
+            <li>SMTP with TLS and test email</li>
+            <li>Codecs: G.711, G.722, Opus, G.729, GSM</li>
+            <li>Global and per-extension codec selection</li>
+          </ul>
+        </div>
+        <div class="screenshot-img">
+          <img src="/settings_email.png" alt="Email configuration" />
+        </div>
+      </div>
+
+      <div class="screenshot-item fade-in">
+        <div class="screenshot-text">
+          <h3>Security</h3>
+          <p>
+            IP whitelist for SIP registrations, weak password checks,
+            and integrated Fail2Ban management &ndash; all in one view.
+          </p>
+          <ul>
+            <li>IP whitelist with CIDR support</li>
+            <li>SIP password strength checks</li>
+            <li>Fail2Ban: jails, active bans, and one-click unban</li>
+          </ul>
+        </div>
+        <div class="screenshot-img">
+          <img src="/settings_security.png" alt="Security settings" />
+        </div>
+      </div>
+
+      <div class="screenshot-item reverse fade-in">
+        <div class="screenshot-text">
+          <h3>Server Management</h3>
+          <p>
+            System status with version, uptime, disk and RAM usage.
+            Check and install updates directly from the web UI.
+          </p>
+          <ul>
+            <li>Version, uptime, and resource monitor</li>
+            <li>One-click updates from the web GUI</li>
+            <li>Server reboot from the interface</li>
+          </ul>
+        </div>
+        <div class="screenshot-img">
+          <img src="/settings_server.png" alt="Server management" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="tech" id="techstack">
+    <div class="container">
+      <div class="section-header">
+        <h2>Technology</h2>
+        <p>Built on proven open-source technologies.</p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#9734;</div>
+          <h4>Asterisk 20 LTS</h4>
+          <p>Proven open-source PBX with PJSIP</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#9889;</div>
+          <h4>FastAPI</h4>
+          <p>Modern Python backend with automatic API documentation</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#9883;</div>
+          <h4>React &amp; TypeScript</h4>
+          <p>Fast, type-safe frontend with Vite and Tailwind CSS</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#128051;</div>
+          <h4>Docker Compose</h4>
+          <p>One command runs everything: Asterisk, backend, frontend, database</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#128024;</div>
+          <h4>PostgreSQL</h4>
+          <p>Reliable database for configuration and call history</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#128274;</div>
+          <h4>JWT Auth</h4>
+          <p>Secure authentication with JSON Web Tokens and bcrypt</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#128268;</div>
+          <h4>WebSocket</h4>
+          <p>Real-time updates for call status and Asterisk events</p>
+        </div>
+
+        <div class="tech-card fade-in">
+          <div class="tech-logo">&#128274;</div>
+          <h4>Let's Encrypt</h4>
+          <p>Automatic SSL certificates for secure HTTPS access</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Home Assistant Integration -->
+  <section class="ha-section" id="homeassistant">
+    <div class="container">
+      <div class="ha-banner fade-in">
+        <div class="ha-content">
+          <div class="ha-logo-row">
+            <img src="/homeassistant-logo.png" alt="Home Assistant Logo" class="ha-logo" />
+            <span class="ha-works-badge">Works with Home Assistant</span>
+          </div>
+          <h2>Smart Home meets phone system</h2>
+          <p>
+            Integrate GonoPBX into Home Assistant &ndash; call status as sensors,
+            real-time events for automations, and start calls directly from your HA dashboard.
+          </p>
+          <ul class="ha-features">
+            <li>Extensions &amp; trunks as binary sensors</li>
+            <li>Active calls, call history &amp; voicemail as sensors</li>
+            <li>Real-time events via MQTT (call started, ended, missed)</li>
+            <li>Services: start calls &amp; toggle forwarding</li>
+          </ul>
+          <div class="ha-buttons">
+            <a href="/en/homeassistant" class="btn-ha">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              Read the guide
+            </a>
+            <a href="https://github.com/ankaios76/gonopbx-homeassistant" target="_blank" rel="noopener" class="btn-ha-secondary">
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+        <div class="ha-visual">
+          <div class="ha-entity-preview">
+            <div class="ha-entity-header">
+              <img src="/homeassistant-logo.png" alt="" class="ha-entity-icon" />
+              <span>GonoPBX Entities</span>
+            </div>
+            <div class="ha-entity-row">
+              <span class="ha-dot ha-dot-green"></span>
+              <span class="ha-entity-name">GonoPBX System</span>
+              <span class="ha-entity-state ha-state-on">Connected</span>
+            </div>
+            <div class="ha-entity-row">
+              <span class="ha-dot ha-dot-green"></span>
+              <span class="ha-entity-name">Ext 1001 (Office)</span>
+              <span class="ha-entity-state ha-state-on">Online</span>
+            </div>
+            <div class="ha-entity-row">
+              <span class="ha-dot ha-dot-green"></span>
+              <span class="ha-entity-name">Trunk Plusnet</span>
+              <span class="ha-entity-state ha-state-on">Registered</span>
+            </div>
+            <div class="ha-entity-row">
+              <span class="ha-dot ha-dot-blue"></span>
+              <span class="ha-entity-name">Active Calls</span>
+              <span class="ha-entity-state">1</span>
+            </div>
+            <div class="ha-entity-row">
+              <span class="ha-dot ha-dot-blue"></span>
+              <span class="ha-entity-name">Calls Today</span>
+              <span class="ha-entity-state">12</span>
+            </div>
+            <div class="ha-entity-row">
+              <span class="ha-dot ha-dot-orange"></span>
+              <span class="ha-entity-name">Voicemail Unread</span>
+              <span class="ha-entity-state">3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation -->
+  <section class="install" id="installation">
+    <div class="container">
+      <div class="section-header">
+        <h2>Ready in 3 Steps</h2>
+        <p>GonoPBX installs in minutes on any Linux server.</p>
+      </div>
+
+      <!-- Supported platforms -->
+      <div class="platform-grid">
+        <div class="platform-item fade-in">
+          <div class="platform-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div>
+            <strong>VPS &amp; Cloud</strong>
+            <span>Hetzner, Netcup, DigitalOcean, AWS, Azure</span>
+          </div>
+        </div>
+        <div class="platform-item fade-in">
+          <div class="platform-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="1"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/></svg>
+          </div>
+          <div>
+            <strong>Raspberry Pi</strong>
+            <span>Pi 4 &amp; Pi 5 (ARM64) &ndash; perfect for homelabs</span>
+          </div>
+        </div>
+        <div class="platform-item fade-in">
+          <div class="platform-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div>
+            <strong>Dedicated Server</strong>
+            <span>Bare metal with Ubuntu, Debian, or any Linux distro</span>
+          </div>
+        </div>
+        <div class="platform-item fade-in">
+          <div class="platform-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
+          </div>
+          <div>
+            <strong>Proxmox &amp; VM</strong>
+            <span>LXC containers or VM &ndash; ideal for homelabs</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="platform-note">Requirements: Linux (x86_64 or ARM64), Docker &amp; Docker Compose. At least 1 GB RAM and 5 GB storage.</p>
+
+      <div class="install-steps">
+        <div class="install-step fade-in">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Clone the repository</h4>
+            <p>Download the source code from GitHub.</p>
+            <div class="code-block">
+              <span class="comment"># Clone repository</span><br/>
+              git clone https://github.com/ankaios76/gonopbx.git<br/>
+              cd gonopbx
+            </div>
+          </div>
+        </div>
+
+        <div class="install-step fade-in">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Run the installer</h4>
+            <p>The interactive installer detects your server IP, generates secure passwords, and creates the configuration.</p>
+            <div class="code-block">
+              <span class="comment"># Run installer</span><br/>
+              chmod +x install.sh<br/>
+              ./install.sh
+            </div>
+          </div>
+        </div>
+
+        <div class="install-step fade-in">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Done!</h4>
+            <p>GonoPBX starts automatically. Open your browser and log in with the generated admin credentials.</p>
+            <div class="code-block">
+              <span class="comment"># Access via browser</span><br/>
+              https://your-server-ip:3000
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Support -->
+  <section class="support-section" style="padding:80px 0;text-align:center;background:#f7fafc;border-top:1px solid #e2e8f0;">
+    <div class="container" style="max-width:800px;">
+      <p style="font-size:2.5rem;margin-bottom:16px;">&#9749;</p>
+      <h2 class="support-heading" style="font-size:2rem;font-weight:800;margin-bottom:16px;">Support GonoPBX</h2>
+      <p style="color:#4a5568;margin-bottom:12px;font-size:1.1rem;line-height:1.7;">
+        GonoPBX is an open-source side project &ndash; free and ad-free.
+        If you like the project, you can support continued development with a coffee.
+      </p>
+      <p style="color:#718096;margin-bottom:40px;font-size:0.95rem;">
+        Your contribution helps with hosting, domain costs, and keeps development moving.
+      </p>
+      <div class="support-tier-grid">
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card">
+          <span class="support-tier-emoji">&#9749;</span>
+          <span class="support-tier-name">Coffee</span>
+          <span class="support-tier-price">5 &euro;</span>
+          <span class="support-tier-desc">A thank-you for the work</span>
+        </a>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card support-tier-highlight">
+          <span class="support-tier-emoji">&#11088;</span>
+          <span class="support-tier-name">Supporter</span>
+          <span class="support-tier-price">10 &euro;</span>
+          <span class="support-tier-desc">Hosting &amp; domain for one month</span>
+        </a>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card">
+          <span class="support-tier-emoji">&#128640;</span>
+          <span class="support-tier-name">Super Fan</span>
+          <span class="support-tier-price">25 &euro;</span>
+          <span class="support-tier-desc">Pushes development forward</span>
+        </a>
+      </div>
+      <p style="margin-top:32px;">
+        <a href="/en/unterstuetzen" style="color:#3182ce;font-weight:600;font-size:0.95rem;">
+          Learn more &amp; other ways to help &rarr;
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+      <p style="margin-top:8px;font-size:0.8rem;color:#cbd5e0;">GonoPBX is an open-source side project &ndash; ideas and feedback welcome!</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="" />
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Mobile nav toggle
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox?.querySelector('img');
+    document.querySelectorAll('.screenshot-img img, .hero-screenshot img').forEach(img => {
+      img.addEventListener('click', () => {
+        if (lightboxImg && lightbox) {
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+    lightbox?.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox?.classList.contains('active')) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Scroll animations (IntersectionObserver)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // Stagger animation for grid items
+          const parent = entry.target.parentElement;
+          const siblings = parent ? Array.from(parent.querySelectorAll('.fade-in')) : [];
+          const i = siblings.indexOf(entry.target);
+          const delay = i >= 0 ? i * 80 : 0;
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Animated counters
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counters = entry.target.querySelectorAll('.stat-number');
+          counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target') || '0');
+            const duration = 1500;
+            const start = performance.now();
+            const animate = (now) => {
+              const elapsed = now - start;
+              const progress = Math.min(elapsed / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              counter.textContent = Math.round(target * eased).toString();
+              if (progress < 1) requestAnimationFrame(animate);
+            };
+            requestAnimationFrame(animate);
+          });
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const statsGrid = document.querySelector('.stats-grid');
+    if (statsGrid) counterObserver.observe(statsGrid);
+  </script>
+
+</Layout>

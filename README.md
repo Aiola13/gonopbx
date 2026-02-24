@@ -37,7 +37,7 @@
 
 - **📞 Extension Management** – Create, edit, and manage SIP extensions with caller ID, context, and activation status
 - **📖 Phonebook** – Global and per-extension address books with CSV import/export
-- **🔌 SIP Trunk Configuration** – Connect to any SIP provider via registration or IP authentication, with built-in templates for Plusnet IPfonie, Telekom DeutschlandLAN, CompanyFlex, and Telekom All-IP (Privatkundenanschluss)
+- **🔌 SIP Trunk Configuration** – Connect to any SIP provider via registration or IP authentication, with built-in templates for Plusnet IPfonie, Telekom DeutschlandLAN, CompanyFlex, Telekom All-IP (Privatkundenanschluss) and Iliad (Italy)
 - **📠 DID Routing** – Flexibly assign incoming phone numbers to extensions with number block management per trunk
 - **📤 Outbound CID Selection** – Choose which assigned DID to use as outbound caller-ID per extension via dropdown
 - **🆔 P-Asserted-Identity (PAI)** – Optional PAI header per extension (e.g. main number of a number block)
@@ -60,6 +60,7 @@
 - **📡 Real-Time Dashboard** – Live overview via WebSocket: Asterisk status, registered endpoints, active lines, and recent calls
 - **🌙 Dark Mode** – System-wide dark theme with OS preference detection, manual toggle, and localStorage persistence
 - **🔍 SIP Debug** – Live SIP message viewer (INVITE, BYE, 200 OK) with per-call grouping, expandable raw SIP text, and toggle capture (admin-only)
+- **🌐 Multilingual UI (DE/EN)** – Choose German or English during installation; UI is fully translated
 - **🔄 One-Click Updates** – Update GonoPBX directly from the web GUI or via command line
 - **🐳 Docker Deployment** – Full system up and running in minutes with `docker compose up`
 
@@ -100,6 +101,7 @@ The installer will automatically:
 - Detect your server IP
 - Generate secure passwords
 - Create the Docker configuration
+- Ask for the UI language (German or English)
 - Start all services
 
 ## 🏗️ Tech Stack
@@ -144,6 +146,16 @@ docker compose up -d --build
 Database migrations run automatically on startup — no manual steps required.
 
 ## 📋 Changelog
+
+### v2.1.2 (2026-02-18)
+
+**New Features:**
+- **Multilingual UI (DE/EN)** – UI translation framework with installer language selection
+
+### v2.1.1 (2026-02-18)
+
+**New Features:**
+- **Iliad (Italy) SIP Trunk** – New provider profile with preset registrar/proxy `voip.iliad.it` and From-User (login number) support
 
 ### v2.1.0 (2026-02-18)
 

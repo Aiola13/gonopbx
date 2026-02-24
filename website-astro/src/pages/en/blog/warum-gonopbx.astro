@@ -1,0 +1,173 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Giscus from '../../../components/Giscus.astro';
+---
+
+<Layout title="Why I Started GonoPBX - GonoPBX Blog" description="The story behind GonoPBX: why a provider engineer built a phone system UI focused on simplicity." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/warum-gonopbx" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/warum-gonopbx" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog Article -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/blog/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Blog
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Background</span>
+          <span>February 9, 2026</span>
+        </div>
+        <h1>Why I Started GonoPBX</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          I work at a provider. Every day I see customers struggle with their phone systems.
+          Not because the technology is inherently complex – but because the software they have to
+          use makes it unnecessarily hard.
+        </p>
+
+        <h2>The problem</h2>
+
+        <p>
+          Most PBX interfaces look like they’re stuck 15 years in the past: endless menus,
+          cryptic terminology, and settings that no normal person ever needs – yet they’re front and center.
+          To create a single extension, you click through five different screens. To assign a number, you
+          practically need an IT degree.
+        </p>
+
+        <p>
+          The result: people call support. Not because something is broken, but because they don’t
+          understand what they’re supposed to configure. That isn’t their fault – it’s the software’s fault.
+        </p>
+
+        <h2>The idea</h2>
+
+        <p>
+          At some point I asked myself: why isn’t there a phone system UI that is simply
+          <strong>understandable</strong>? A UI you open and instantly know what to do.
+          No manual, no training.
+        </p>
+
+        <p>
+          I wanted to build something my mother could use. Or my neighbor. Or a small business that just
+          wants to make calls without dealing with SIP headers and dialplan syntax.
+        </p>
+
+        <h2>The approach</h2>
+
+        <p>
+          GonoPBX hides the complexity. Under the hood runs Asterisk – a powerful, proven open-source PBX.
+          But the interface only shows what you actually need:
+        </p>
+
+        <ul>
+          <li>Create an extension – name, number, password, done</li>
+          <li>Assign a number – pick DID, pick extension, done</li>
+          <li>Call forwarding – one toggle, one destination, done</li>
+          <li>Voicemail – enable, set PIN, enter email, done</li>
+        </ul>
+
+        <p>
+          No nested menus, no jargon where it doesn’t belong, no unnecessary options. And when you do need
+          something technical – like codec selection or IP whitelisting – it’s in a separate admin area.
+        </p>
+
+        <h2>A side project</h2>
+
+        <p>
+          GonoPBX is not a startup and not a commercial product. It’s a hobby project that I develop in my
+          free time. It grows release by release. Sometimes three features land in a week, sometimes nothing
+          happens for weeks.
+        </p>
+
+        <p>
+          And that’s the point. No pressure, no schedule – just the joy of building something I’d like to use
+          myself. If it helps others too, even better.
+        </p>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Got an idea or suggestion?</strong>
+            Feel free to reach out via the <a href="/en/kontakt" style="color:#2a4365;font-weight:600;">contact page</a>
+            or open an <a href="https://github.com/ankaios76/gonopbx/issues" style="color:#2a4365;font-weight:600;" target="_blank" rel="noopener">issue on GitHub</a>.
+            I appreciate any feedback.
+          </p>
+        </div>
+
+        <!-- Coffee CTA -->
+        <div class="coffee-cta">
+          <span class="coffee-cta-icon">&#9749;</span>
+          <div class="coffee-cta-text">
+            <strong>Enjoyed this post?</strong>
+            <span>GonoPBX is open source and free. Support ongoing development with a coffee.</span>
+          </div>
+          <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a Coffee
+          </a>
+        </div>
+
+        <Giscus />
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

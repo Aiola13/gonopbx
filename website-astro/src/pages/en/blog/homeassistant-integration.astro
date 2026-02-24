@@ -1,0 +1,213 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Giscus from '../../../components/Giscus.astro';
+---
+
+<Layout title="Home Assistant Integration - GonoPBX Blog" description="Connect GonoPBX to Home Assistant: sensors for extensions, MQTT events for calls, and click-to-call from your smart home." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/homeassistant-integration" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/homeassistant-integration" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog Article -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/blog/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Blog
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Integration</span>
+          <span>February 12, 2026</span>
+        </div>
+        <h1>GonoPBX meets Home Assistant</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          If you run a smart home with Home Assistant, you probably want to see
+          <em>everything</em> in one dashboard: lights, heating, cameras – and why not your
+          phone system too? Now you can.
+        </p>
+
+        <h2>What does the integration do?</h2>
+
+        <p>
+          The Home Assistant integration connects GonoPBX to your smart home via two channels:
+          a <strong>REST API</strong> for sensors and actions, and <strong>MQTT</strong>
+          for real-time events.
+        </p>
+
+        <h3>Sensors</h3>
+        <p>
+          GonoPBX exposes the following information as Home Assistant sensors:
+        </p>
+        <ul>
+          <li><strong>Extensions</strong> – Online/offline status for each extension (binary sensor)</li>
+          <li><strong>Trunks</strong> – Registration status of SIP lines</li>
+          <li><strong>Active calls</strong> – Number of current calls</li>
+          <li><strong>Calls today</strong> – Counter of calls for the current day</li>
+          <li><strong>Voicemail</strong> – Number of unread voice messages</li>
+        </ul>
+
+        <h3>MQTT events</h3>
+        <p>
+          For every call, GonoPBX sends events over MQTT. This enables automations – for example:
+        </p>
+        <ul>
+          <li>Blink lights when the phone rings</li>
+          <li>Mute the TV on incoming calls</li>
+          <li>Push notification on missed calls</li>
+          <li>Show caller info on a hallway display</li>
+        </ul>
+
+        <h3>Click-to-call</h3>
+        <p>
+          Using the <strong>originate endpoint</strong>, you can start calls directly from
+          Home Assistant. Your phone rings first, and once you pick up, the target number is dialed.
+          Perfect for:
+        </p>
+        <ul>
+          <li>A “Call” button in the HA dashboard</li>
+          <li>Automated calls on alarms (e.g., water sensor)</li>
+          <li>Speed dial via a wall-mounted tablet</li>
+        </ul>
+
+        <h2>Setup in 3 steps</h2>
+
+        <h3>1. Configure MQTT broker</h3>
+        <p>
+          Under <strong>Settings → Home Assistant</strong> in the GonoPBX UI,
+          configure the MQTT broker. Usually this is the IP of your Home Assistant instance
+          with the Mosquitto add-on.
+        </p>
+
+        <h3>2. Generate API key</h3>
+        <p>
+          In the same section, generate an API key. This key is used in Home Assistant
+          for authentication. Click “Generate key” and copy it.
+        </p>
+
+        <h3>3. Configure Home Assistant</h3>
+        <p>
+          In Home Assistant’s <code>configuration.yaml</code>, set up REST and MQTT sensors.
+          A detailed guide with ready-to-use YAML snippets is available on the
+          <a href="/en/homeassistant" style="color:#3182ce;font-weight:600;">integration page</a>.
+        </p>
+
+        <h2>Security</h2>
+
+        <p>
+          Communication is secured by two mechanisms:
+        </p>
+        <ul>
+          <li><strong>API key</strong> – Every REST request must send a valid key in the header</li>
+          <li><strong>MQTT auth</strong> – The MQTT broker is accessed with username/password (Mosquitto standard)</li>
+        </ul>
+
+        <p>
+          The API key can be regenerated at any time in the GonoPBX UI if it is compromised.
+        </p>
+
+        <h2>Example automation</h2>
+
+        <p>
+          Here’s a simple example: blink the hallway lights on an incoming call.
+        </p>
+
+        <pre><code set:html={`automation:
+  - alias: "Phone ringing - blink light"
+    trigger:
+      - platform: mqtt
+        topic: "gonopbx/events/call"
+    condition:
+      - condition: template
+        value_template: "{{ trigger.payload_json.event == 'ringing' }}"
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.hallway
+        data:
+          flash: short`} /></pre>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Full guide:</strong> All setup details, YAML configurations,
+            and more examples are available on the
+            <a href="/en/homeassistant" style="color:#2a4365;font-weight:600;">Home Assistant integration page</a>.
+          </p>
+        </div>
+
+        <!-- Coffee CTA -->
+        <div class="coffee-cta">
+          <span class="coffee-cta-icon">&#9749;</span>
+          <div class="coffee-cta-text">
+            <strong>Enjoyed this post?</strong>
+            <span>GonoPBX is open source and free. Support ongoing development with a coffee.</span>
+          </div>
+          <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a Coffee
+          </a>
+        </div>
+
+        <Giscus />
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

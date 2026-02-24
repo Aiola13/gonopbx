@@ -1,0 +1,201 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Giscus from '../../../components/Giscus.astro';
+---
+
+<Layout title="v1.7.0 – SIP Debug: Live SIP Messages in the Browser - GonoPBX Blog" description="GonoPBX v1.7.0: New SIP Debug page shows all SIP messages live in the browser. INVITE, BYE, 200 OK – grouped by Call-ID with expandable raw SIP text." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/v1-7-0-sip-debug" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/v1-7-0-sip-debug" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog Article -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/blog/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Blog
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature Update</span>
+          <span>February 13, 2026</span>
+          <span>&middot;</span>
+          <span>v1.7.0</span>
+        </div>
+        <h1>SIP Debug – Live SIP Messages in the Browser</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          Anyone running a VoIP system knows the pain: a call doesn’t ring,
+          caller ID is wrong, or a trunk won’t register.
+          Until now you had to SSH into the server, open the Asterisk CLI,
+          and type <code>pjsip set logger on</code>.
+          That’s cumbersome – especially when you’re on the go or need to help a customer quickly.
+        </p>
+
+        <p>
+          Starting with <strong>GonoPBX v1.7.0</strong>, there’s a dedicated page for this:
+          <strong>SIP Debug</strong>. Directly in the web UI, no SSH, no CLI.
+        </p>
+
+        <h2>How it works</h2>
+
+        <p>
+          On the new SIP Debug page (reachable via the navigation, admin-only),
+          you’ll find a <strong>toggle</strong>. When you enable capture, the following happens:
+        </p>
+
+        <ul>
+          <li>Asterisk’s <code>res_pjsip_history</code> module is enabled</li>
+          <li>All inbound and outbound SIP messages are captured</li>
+          <li>The backend polls every 3 seconds for new entries</li>
+          <li>Messages are grouped by <strong>Call-ID</strong> and shown in the browser</li>
+        </ul>
+
+        <h2>What you see</h2>
+
+        <p>
+          The page shows a <strong>call list</strong> of all captured SIP dialogs.
+          Each row shows:
+        </p>
+
+        <ul>
+          <li><strong>Timestamp</strong> – when the dialog started</li>
+          <li><strong>Call-ID</strong> – shortened, with tooltip for the full ID</li>
+          <li><strong>From / To</strong> – extracted from From/To headers</li>
+          <li><strong>Method</strong> – INVITE, REGISTER, OPTIONS, BYE, etc.</li>
+          <li><strong>Message count</strong> – how many SIP messages belong to this call</li>
+        </ul>
+
+        <p>
+          Click a call to open a <strong>timeline</strong> with all SIP messages in order:
+        </p>
+
+        <ul>
+          <li>Direction arrow: <span style="color:#3182ce;">→ sent</span> (blue) / <span style="color:#38a169;">← received</span> (green)</li>
+          <li>Method or status code – color-coded (200 = green, 4xx/5xx = red, 1xx = yellow)</li>
+          <li>CSeq header for correlation</li>
+          <li>Expandable: click to show the <strong>full SIP text</strong> in monospace</li>
+        </ul>
+
+        <h2>Storage and security</h2>
+
+        <ul>
+          <li>Messages are kept in RAM for <strong>max 2 hours</strong> – then deleted automatically</li>
+          <li>Hard cap of <strong>10,000 messages</strong> as a safety limit</li>
+          <li>Capture can be <strong>disabled</strong> anytime – Asterisk history stops immediately</li>
+          <li>The page is <strong>admin-only</strong> – regular users won’t see the menu entry</li>
+        </ul>
+
+        <h2>Typical use cases</h2>
+
+        <ul>
+          <li><strong>Trunk won’t register?</strong> → Check REGISTER messages, analyze 401/403 responses</li>
+          <li><strong>Inbound call doesn’t ring?</strong> → Follow INVITE + 100 Trying/180 Ringing sequence</li>
+          <li><strong>One-way audio?</strong> → Inspect SDP in INVITE/200 OK (media addresses, codecs)</li>
+          <li><strong>Caller ID wrong?</strong> → Check From header and P-Asserted-Identity in outbound INVITE</li>
+        </ul>
+
+        <h2>Install the update</h2>
+
+        <h3>Automatic (recommended)</h3>
+        <p>
+          In the GonoPBX web interface under <strong>Settings → Server → Update</strong>
+          click “Install update”.
+        </p>
+
+        <h3>Manual</h3>
+        <pre><code>cd /root/asterisk-pbx-gui
+git pull origin main
+docker compose up -d --build</code></pre>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Note:</strong> No database migrations are required.
+            SIP Debug works purely in memory – after a restart the buffer is empty,
+            and capture must be enabled again.
+          </p>
+        </div>
+
+        <p>
+          You can find full release notes on the
+          <a href="/en/release-notes" style="color:#3182ce;font-weight:600;">Release Notes page</a>
+          or directly on
+          <a href="https://github.com/ankaios76/gonopbx/releases/tag/v1.7.0" style="color:#3182ce;font-weight:600;" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+
+        <!-- Coffee CTA -->
+        <div class="coffee-cta">
+          <span class="coffee-cta-icon">&#9749;</span>
+          <div class="coffee-cta-text">
+            <strong>Enjoyed this post?</strong>
+            <span>GonoPBX is open source and free. Support ongoing development with a coffee.</span>
+          </div>
+          <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a Coffee
+          </a>
+        </div>
+
+        <Giscus />
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle script -->
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

@@ -1,0 +1,148 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Outbound Caller ID - Choose Number per Extension - GonoPBX" description="GonoPBX outbound caller ID: choose which DID is shown for outbound calls per extension. Includes optional P-Asserted-Identity header." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/outbound-caller-id" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/outbound-caller-id" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/outbound-caller-id" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to overview
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Since v1.6.0</span>
+        </div>
+        <h1>Outbound Caller ID – Choose Number per Extension</h1>
+      </div>
+
+      <div class="blog-article-content">
+        <p>
+          If an extension has <strong>multiple numbers</strong>, starting with v1.6.0 you can
+          choose which DID is sent as caller ID for outbound calls.
+          In addition, a <strong>P-Asserted-Identity header</strong> can be configured per extension.
+        </p>
+
+        <h2>Features</h2>
+
+        <ul>
+          <li><strong>Caller ID selection</strong> – Dropdown with all DIDs assigned to the extension</li>
+          <li><strong>P-Asserted-Identity</strong> – Optional PAI header for providers that require it</li>
+          <li><strong>Per extension</strong> – Each extension has its own configuration</li>
+          <li><strong>Applies immediately</strong> – Changes take effect on the next outbound call</li>
+        </ul>
+
+        <h2>Screenshot</h2>
+
+        <div style="margin:32px 0;">
+          <img src="/feature-outbound-cid.png" alt="Outbound caller ID in GonoPBX" style="width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);" />
+          <p style="text-align:center;color:#718096;font-size:0.9rem;margin-top:8px;">Caller ID selection and PAI header per extension</p>
+        </div>
+
+        <h2>When do I need this?</h2>
+
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Scenario</th>
+              <th style="padding:12px 16px;color:#4a5568;">Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Employee should call with company number</td>
+              <td style="padding:12px 16px;">Set main DID as caller ID</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Departments with own direct numbers</td>
+              <td style="padding:12px 16px;">Select department DID as caller ID</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Provider requires PAI header</td>
+              <td style="padding:12px 16px;">Set P-Asserted-Identity per extension</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Number block with extensions</td>
+              <td style="padding:12px 16px;">Each extension selects its own DID</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Technical details</h2>
+
+        <p>
+          The selected caller ID is written to <code>CALLERID(num)</code> in the dialplan
+          before the call goes out over the trunk. The PAI header is added as
+          an additional SIP header in the INVITE.
+        </p>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Available since version 1.6.0.</strong>
+            Update via <em>Settings → Server → Update</em> or manually with
+            <code>git pull &amp;&amp; docker compose up -d --build</code>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

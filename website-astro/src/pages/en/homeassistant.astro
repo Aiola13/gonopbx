@@ -1,0 +1,351 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Integrate GonoPBX with Home Assistant - Guide" description="Step-by-step guide: integrate GonoPBX with Home Assistant. Sensors, automations, MQTT events, and click-to-call from your smart home." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/homeassistant" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/homeassistant" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/homeassistant" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="ha-hero" style="padding:80px 0 56px;background:linear-gradient(135deg, #ebf8ff 0%, #e8f4f8 50%, #f0f4ff 100%);text-align:center;">
+    <div class="container" style="max-width:800px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:28px;">
+        <img src="/logo.png" alt="GonoPBX" style="height:72px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.1));" />
+        <div class="ha-hero-plus" style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+          <span style="font-size:1.5rem;color:#18bcf2;font-weight:700;">+</span>
+        </div>
+        <img src="/homeassistant-logo.png" alt="Home Assistant" style="height:72px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.1));" />
+      </div>
+      <span style="display:inline-block;background:#18bcf2;color:#fff;padding:6px 20px;border-radius:24px;font-size:0.85rem;font-weight:700;letter-spacing:0.02em;margin-bottom:20px;">Works with Home Assistant</span>
+      <h1 class="ha-hero-title" style="font-size:2.6rem;font-weight:800;margin-bottom:16px;line-height:1.2;">Your phone system meets your smart home</h1>
+      <p class="ha-hero-desc" style="font-size:1.2rem;color:#4a5568;max-width:640px;margin:0 auto 28px;line-height:1.7;">
+        Connect GonoPBX with Home Assistant – call status as sensors,
+        real-time MQTT events, and trigger calls directly from your HA dashboard.
+      </p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <span class="ha-hero-pill" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;padding:8px 16px;border-radius:10px;font-size:0.88rem;color:#4a5568;font-weight:500;">
+          <span style="color:#38a169;font-weight:700;">&#10003;</span> Sensors &amp; Binary Sensors
+        </span>
+        <span class="ha-hero-pill" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;padding:8px 16px;border-radius:10px;font-size:0.88rem;color:#4a5568;font-weight:500;">
+          <span style="color:#38a169;font-weight:700;">&#10003;</span> Real-time MQTT events
+        </span>
+        <span class="ha-hero-pill" style="display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid #e2e8f0;padding:8px 16px;border-radius:10px;font-size:0.88rem;color:#4a5568;font-weight:500;">
+          <span style="color:#38a169;font-weight:700;">&#10003;</span> Control calls &amp; forwarding
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ha-guide">
+    <div class="container">
+      <div class="ha-guide-content">
+
+        <h2>Overview</h2>
+        <p>
+          The GonoPBX Home Assistant integration connects your Asterisk PBX to your smart home.
+          You get real-time status of extensions and trunks, call statistics as sensors,
+          and can trigger automations based on call events.
+        </p>
+
+        <div class="ha-step-grid">
+          <div class="ha-step-card">
+            <strong>REST API (Polling)</strong>
+            <p>Every 30 seconds: extension status, active calls, call stats, and voicemail.</p>
+          </div>
+          <div class="ha-step-card">
+            <strong>MQTT (Push)</strong>
+            <p>Real-time events for call start, answer, and end. Immediate status updates.</p>
+          </div>
+          <div class="ha-step-card">
+            <strong>Sensors</strong>
+            <p>Binary sensors for extensions &amp; trunks, plus sensors for calls and voicemail.</p>
+          </div>
+          <div class="ha-step-card">
+            <strong>Services</strong>
+            <p>Start calls from HA and toggle call forwarding from automations or dashboards.</p>
+          </div>
+        </div>
+
+        <h2>Step 1: Prepare GonoPBX</h2>
+        <p>
+          First, configure an API key and optionally MQTT in your GonoPBX installation.
+          Edit the <code>.env</code> file in the GonoPBX directory:
+        </p>
+
+        <pre><code><span class="guide-comment"># API key for Home Assistant</span>
+HA_API_KEY=your-secure-api-key-here
+
+<span class="guide-comment"># Optional: MQTT for real-time events</span>
+MQTT_BROKER=192.168.1.100    <span class="guide-comment"># IP of your Mosquitto broker</span>
+MQTT_PORT=1883
+MQTT_USER=ha_user
+MQTT_PASSWORD=ha_password</code></pre>
+
+        <div class="info-box">
+          <strong>Tip:</strong> Generate a secure API key like this:
+          <code>openssl rand -hex 32</code>
+        </div>
+
+        <p>Then restart GonoPBX:</p>
+
+        <pre><code>cd /root/gonopbx
+docker compose up -d --build backend</code></pre>
+
+        <h2>Step 2: Install the HACS integration</h2>
+
+        <h3>Option A: via HACS (recommended)</h3>
+        <ol>
+          <li>Open HACS in Home Assistant</li>
+          <li>Click the three-dots menu → <strong>Custom repositories</strong></li>
+          <li>Enter: <code>https://github.com/ankaios76/gonopbx-homeassistant</code> as an <strong>Integration</strong></li>
+          <li>Search for “GonoPBX” and click <strong>Install</strong></li>
+          <li>Restart Home Assistant</li>
+        </ol>
+
+        <h3>Option B: manual</h3>
+        <ol>
+          <li>Download the repository:<br/>
+            <code>git clone https://github.com/ankaios76/gonopbx-homeassistant.git</code>
+          </li>
+          <li>Copy the folder <code>custom_components/gonopbx/</code> to<br/>
+            <code>/config/custom_components/gonopbx/</code> in your HA installation
+          </li>
+          <li>Restart Home Assistant</li>
+        </ol>
+
+        <h2>Step 3: Configure the integration</h2>
+        <ol>
+          <li>Go to <strong>Settings → Devices &amp; Services → Add Integration</strong></li>
+          <li>Search for <strong>GonoPBX</strong></li>
+          <li>Enter the connection details:
+            <ul>
+              <li><strong>Host:</strong> IP address of your GonoPBX server</li>
+              <li><strong>Port:</strong> 8000 (default)</li>
+              <li><strong>API Key:</strong> The <code>HA_API_KEY</code> from your <code>.env</code></li>
+              <li><strong>Enable MQTT:</strong> Check if MQTT is configured in GonoPBX</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="info-box">
+          The integration automatically verifies the connection.
+          If everything works, all entities are created immediately.
+        </div>
+
+        <h2>Available entities</h2>
+
+        <h3>Binary sensors (online/offline)</h3>
+        <ul>
+          <li><code>binary_sensor.gonopbx_system</code> – Overall PBX status</li>
+          <li><code>binary_sensor.gonopbx_ext_1001</code> – Per-extension status</li>
+          <li><code>binary_sensor.gonopbx_trunk_plusnet</code> – Per-trunk status</li>
+        </ul>
+
+        <h3>Sensors</h3>
+        <ul>
+          <li><code>sensor.gonopbx_active_calls</code> – Active calls</li>
+          <li><code>sensor.gonopbx_calls_today</code> – Calls today</li>
+          <li><code>sensor.gonopbx_calls_missed</code> – Missed calls</li>
+          <li><code>sensor.gonopbx_voicemail_unread</code> – Unread voicemails</li>
+        </ul>
+
+        <h3>Services</h3>
+        <ul>
+          <li><code>gonopbx.make_call</code> – Start a call from an extension</li>
+          <li><code>gonopbx.toggle_forwarding</code> – Enable/disable call forwarding</li>
+        </ul>
+
+        <h2>MQTT events</h2>
+        <p>
+          If MQTT is enabled, Home Assistant receives real-time events for every call.
+          You can use these events directly as automation triggers:
+        </p>
+        <ul>
+          <li><code>gonopbx_call_started</code> – Call started (includes caller, destination)</li>
+          <li><code>gonopbx_call_answered</code> – Call answered</li>
+          <li><code>gonopbx_call_ended</code> – Call ended (includes duration, disposition)</li>
+        </ul>
+
+        <h2>Automations – examples</h2>
+
+        <div class="automation-example">
+          <h4>Notify on missed call</h4>
+          <p>Sends a push notification to your phone if a call is not answered.</p>
+        </div>
+
+        <pre><code><span class="guide-comment"># automations.yaml</span>
+automation:
+  - alias: "Missed call notification"
+    trigger:
+      - platform: event
+        event_type: gonopbx_call_ended
+    condition:
+      - condition: template
+        value_template: >
+          &#123;&#123; trigger.event.data.disposition == 'NO ANSWER' &#125;&#125;
+    action:
+      - service: notify.mobile_app
+        data:
+          title: "Missed call"
+          message: >
+            Call from &#123;&#123; trigger.event.data.caller &#125;&#125;</code></pre>
+
+        <div class="automation-example">
+          <h4>Mute the TV on incoming call</h4>
+          <p>Automatically mutes the TV when a call comes in.</p>
+        </div>
+
+        <pre><code>automation:
+  - alias: "Mute TV on call"
+    trigger:
+      - platform: event
+        event_type: gonopbx_call_started
+    action:
+      - service: media_player.volume_mute
+        target:
+          entity_id: media_player.living_room_tv
+        data:
+          is_volume_muted: true</code></pre>
+
+        <div class="automation-example">
+          <h4>Start a call from a dashboard button</h4>
+          <p>Add a button to your HA dashboard that triggers a call.</p>
+        </div>
+
+        <pre><code><span class="guide-comment"># In Automations or Developer Tools → Services:</span>
+service: gonopbx.make_call
+data:
+  extension: "1001"
+  number: "004930123456"</code></pre>
+
+        <div class="automation-example">
+          <h4>Enable call forwarding automatically</h4>
+          <p>Enable forwarding when you leave the house (e.g., via presence detection).</p>
+        </div>
+
+        <pre><code>automation:
+  - alias: "Forwarding when away"
+    trigger:
+      - platform: state
+        entity_id: person.me
+        to: "not_home"
+    action:
+      - service: gonopbx.toggle_forwarding
+        data:
+          forward_id: 1
+          enabled: true</code></pre>
+
+        <h2>MQTT topics (reference)</h2>
+
+        <p>GonoPBX publishes the following MQTT topics:</p>
+
+        <div style="overflow-x:auto;">
+          <table class="mqtt-table" style="width:100%;border-collapse:collapse;font-size:0.9rem;margin:16px 0;">
+            <thead>
+              <tr style="background:#f7fafc;border-bottom:2px solid #e2e8f0;">
+                <th style="text-align:left;padding:10px 14px;font-weight:600;">Topic</th>
+                <th style="text-align:left;padding:10px 14px;font-weight:600;">Payload</th>
+                <th style="text-align:center;padding:10px 14px;font-weight:600;">Retained</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px 14px;"><code>gonopbx/status</code></td>
+                <td style="padding:10px 14px;">online / offline</td>
+                <td style="padding:10px 14px;text-align:center;">Yes</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px 14px;"><code>gonopbx/call/started</code></td>
+                <td style="padding:10px 14px;">&#123;caller, destination, direction, timestamp&#125;</td>
+                <td style="padding:10px 14px;text-align:center;">No</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px 14px;"><code>gonopbx/call/answered</code></td>
+                <td style="padding:10px 14px;">&#123;caller, destination, timestamp&#125;</td>
+                <td style="padding:10px 14px;text-align:center;">No</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px 14px;"><code>gonopbx/call/ended</code></td>
+                <td style="padding:10px 14px;">&#123;caller, destination, duration, disposition&#125;</td>
+                <td style="padding:10px 14px;text-align:center;">No</td>
+              </tr>
+              <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:10px 14px;"><code>gonopbx/extension/&#123;ext&#125;/status</code></td>
+                <td style="padding:10px 14px;">online / offline</td>
+                <td style="padding:10px 14px;text-align:center;">Yes</td>
+              </tr>
+              <tr>
+                <td style="padding:10px 14px;"><code>gonopbx/trunk/&#123;name&#125;/status</code></td>
+                <td style="padding:10px 14px;">registered / unregistered</td>
+                <td style="padding:10px 14px;text-align:center;">Yes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Help &amp; Support</h2>
+        <p>
+          If you have questions or issues, open an issue on GitHub:
+        </p>
+        <ul>
+          <li><a href="https://github.com/ankaios76/gonopbx-homeassistant/issues" target="_blank" rel="noopener">HACS integration – Issues</a></li>
+          <li><a href="https://github.com/ankaios76/gonopbx/issues" target="_blank" rel="noopener">GonoPBX backend – Issues</a></li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

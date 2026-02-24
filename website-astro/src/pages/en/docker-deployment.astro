@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Docker Deployment - Setup in Minutes - GonoPBX" description="GonoPBX Docker deployment: full system ready in minutes with docker compose. Interactive installer for Linux, Raspberry Pi, and cloud." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/docker-deployment" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/docker-deployment" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/docker-deployment" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/#features" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to overview
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Feature</span>
+          <span>Core capability</span>
+        </div>
+        <h1>Docker Deployment – Ready in Minutes</h1>
+      </div>
+
+      <div class="blog-article-content">
+        <p>
+          GonoPBX runs entirely in <strong>Docker containers</strong>.
+          A single command starts Asterisk, backend, frontend, and database.
+          The interactive installer detects your server IP, generates secure passwords,
+          and creates the full configuration automatically.
+        </p>
+
+        <h2>What is included?</h2>
+
+        <ul>
+          <li><strong>Asterisk 20 LTS</strong> – PBX server with PJSIP stack</li>
+          <li><strong>FastAPI backend</strong> – REST API and WebSocket server</li>
+          <li><strong>React frontend</strong> – Web GUI with Vite and TypeScript</li>
+          <li><strong>PostgreSQL</strong> – Database for configuration and CDR</li>
+          <li><strong>Nginx</strong> – Reverse proxy with optional SSL</li>
+        </ul>
+
+        <h2>Supported platforms</h2>
+
+        <table style="width:100%;border-collapse:collapse;margin:24px 0;">
+          <thead>
+            <tr style="border-bottom:2px solid #e2e8f0;text-align:left;">
+              <th style="padding:12px 16px;color:#4a5568;">Platform</th>
+              <th style="padding:12px 16px;color:#4a5568;">Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">VPS &amp; Cloud</td>
+              <td style="padding:12px 16px;">Hetzner, Netcup, DigitalOcean, AWS, Azure</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Raspberry Pi</td>
+              <td style="padding:12px 16px;">Pi 4 &amp; Pi 5 (ARM64) – perfect for homelabs</td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+              <td style="padding:12px 16px;">Dedicated server</td>
+              <td style="padding:12px 16px;">Bare metal with Ubuntu, Debian, or any Linux distro</td>
+            </tr>
+            <tr>
+              <td style="padding:12px 16px;">Proxmox &amp; VM</td>
+              <td style="padding:12px 16px;">LXC containers or VM – ideal for homelabs</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Installation</h2>
+
+        <div style="background:#1a202c;border-radius:12px;padding:24px;margin:24px 0;color:#e2e8f0;font-family:monospace;font-size:0.95rem;line-height:1.8;overflow-x:auto;">
+          <span style="color:#718096;"># Clone the repository</span><br/>
+          git clone https://github.com/ankaios76/gonopbx.git<br/>
+          cd gonopbx<br/><br/>
+          <span style="color:#718096;"># Run the installer</span><br/>
+          chmod +x install.sh<br/>
+          ./install.sh<br/><br/>
+          <span style="color:#718096;"># Or manually</span><br/>
+          cp .env.example .env<br/>
+          docker compose up -d --build
+        </div>
+
+        <h2>What does the installer do?</h2>
+
+        <ul>
+          <li><strong>Detect IP</strong> – Automatically determines your external IP address</li>
+          <li><strong>Generate passwords</strong> – Secure random passwords for DB, AMI, JWT, and admin</li>
+          <li><strong>Create .env</strong> – All configuration values in one file</li>
+          <li><strong>Start containers</strong> – Runs <code>docker compose up -d --build</code> automatically</li>
+        </ul>
+
+        <h2>System requirements</h2>
+
+        <ul>
+          <li>Linux (x86_64 or ARM64)</li>
+          <li>Docker &amp; Docker Compose</li>
+          <li>At least 1 GB RAM</li>
+          <li>At least 5 GB storage</li>
+        </ul>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Updates</strong> are easy:
+            <code>git pull &amp;&amp; docker compose up -d --build</code> or
+            directly via <em>Settings → Server → Update</em> in the web GUI.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

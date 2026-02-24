@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { fetchPosts } from '../../lib/directus';
 
-const posts = await fetchPosts();
+const posts = await fetchPosts({ lang: 'de', locale: 'de-DE' });
 ---
 
 <Layout title="Blog - GonoPBX" description="Neuigkeiten, Feature-Updates und Tipps rund um GonoPBX. Erfahre, was sich in der Open-Source Telefonanlage tut.">
@@ -22,10 +22,15 @@ const posts = await fetchPosts();
         <li><a href="/#features">Features</a></li>
         <li><a href="/#screenshots">Screenshots</a></li>
         <li><a href="/#techstack">Technologie</a></li>
-        <li><a href="/#installation">Installation</a></li>
         <li><a href="/release-notes">Release Notes</a></li>
         <li><a href="/blog/">Blog</a></li>
         <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/unterstuetzen">Unterst&uuml;tzen</a></li>        <li class="nav-lang">
+          <a href="/" class="lang-link active">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/" class="lang-link">EN</a>
+        </li>
+
         <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
       </ul>
     </div>
@@ -117,6 +122,7 @@ const posts = await fetchPosts();
       <ul class="footer-links">
         <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
         <li><a href="https://demo.gonopbx.de">Live-Demo</a></li>
+        <li><a href="/unterstuetzen">Unterst&uuml;tzen</a></li>
         <li><a href="/impressum">Impressum</a></li>
         <li><a href="/datenschutz">Datenschutz</a></li>
       </ul>

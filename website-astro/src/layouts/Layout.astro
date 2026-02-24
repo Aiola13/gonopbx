@@ -4,6 +4,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   noindex?: boolean;
+  lang?: 'de' | 'en';
 }
 
 const {
@@ -11,13 +12,21 @@ const {
   description = 'GonoPBX - Die moderne Open-Source Telefonanlage mit Web-GUI. Basierend auf Asterisk, Docker und React.',
   ogImage = 'https://gonopbx.de/dashboard1.png',
   noindex = false,
+  lang = 'de',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://gonopbx.de');
+const ogLocale = lang === 'en' ? 'en_US' : 'de_DE';
+const pathName = Astro.url.pathname;
+const isEnglishPath = pathName === '/en' || pathName.startsWith('/en/');
+const dePath = isEnglishPath ? (pathName.replace(/^\/en/, '') || '/') : pathName;
+const enPath = isEnglishPath ? pathName : (pathName === '/' ? '/en/' : `/en${pathName}`);
+const deUrl = new URL(dePath, Astro.site || 'https://gonopbx.de');
+const enUrl = new URL(enPath, Astro.site || 'https://gonopbx.de');
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,6 +34,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://gonopbx.
     <meta name="author" content="Norbert Hengsteler" />
     {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonicalURL.href} />
+    <link rel="alternate" hreflang="de" href={deUrl.href} />
+    <link rel="alternate" hreflang="en" href={enUrl.href} />
+    <link rel="alternate" hreflang="x-default" href={deUrl.href} />
     <link rel="icon" type="image/png" href="/logo.png" />
 
     <!-- Open Graph -->
@@ -33,7 +45,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://gonopbx.
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={canonicalURL.href} />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:site_name" content="GonoPBX" />
 
     <!-- Twitter Card -->
@@ -134,6 +146,33 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://gonopbx.
 
       .nav-links a:hover {
         color: #3182ce;
+      }
+
+      .nav-lang {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border: 1px solid #e2e8f0;
+        border-radius: 999px;
+        background: #fff;
+      }
+
+      .lang-link {
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #4a5568;
+        text-transform: uppercase;
+      }
+
+      .lang-link.active {
+        color: #1a202c;
+      }
+
+      .lang-sep {
+        color: #cbd5e0;
+        font-weight: 600;
       }
 
       .nav-cta {
@@ -2165,6 +2204,179 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://gonopbx.
       }
 
       [data-theme="dark"] section[style*="min-height:70vh"] p {
+        color: #94a3b8;
+      }
+
+      /* Support tier cards */
+      .support-tier-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .support-tier-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 28px 20px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: #fff;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s;
+      }
+
+      .support-tier-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(49,130,206,0.1);
+        border-color: #bee3f8;
+        color: inherit;
+      }
+
+      .support-tier-highlight {
+        border-color: #FFDD00;
+        box-shadow: 0 4px 16px rgba(255,221,0,0.15);
+      }
+
+      .support-tier-emoji {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+
+      .support-tier-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 4px;
+      }
+
+      .support-tier-price {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #3182ce;
+        margin-bottom: 8px;
+      }
+
+      .support-tier-desc {
+        font-size: 0.85rem;
+        color: #718096;
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      @media (max-width: 768px) {
+        .support-tier-grid {
+          grid-template-columns: 1fr;
+          max-width: 320px;
+        }
+      }
+
+      /* Coffee CTA banner for blog posts */
+      .coffee-cta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 20px 24px;
+        border: 1px solid #feebc8;
+        border-radius: 12px;
+        background: #fffaf0;
+        margin: 40px 0 32px;
+      }
+
+      .coffee-cta-icon {
+        font-size: 1.8rem;
+        flex-shrink: 0;
+      }
+
+      .coffee-cta-text {
+        flex: 1;
+      }
+
+      .coffee-cta-text strong {
+        display: block;
+        font-size: 0.95rem;
+        color: #1a202c;
+        margin-bottom: 4px;
+      }
+
+      .coffee-cta-text span {
+        font-size: 0.88rem;
+        color: #718096;
+        line-height: 1.5;
+      }
+
+      .coffee-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #FFDD00;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.88rem;
+        text-decoration: none;
+        transition: all 0.2s;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      .coffee-cta-btn:hover {
+        background: #f0d000;
+        color: #000;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(255,221,0,0.3);
+      }
+
+      @media (max-width: 768px) {
+        .coffee-cta {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+
+      /* Dark mode: tier cards */
+      [data-theme="dark"] .support-tier-card {
+        background: #1e293b;
+        border-color: #334155;
+      }
+
+      [data-theme="dark"] .support-tier-card:hover {
+        border-color: #475569;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      }
+
+      [data-theme="dark"] .support-tier-highlight {
+        border-color: #b8960a;
+        box-shadow: 0 4px 16px rgba(255,221,0,0.1);
+      }
+
+      [data-theme="dark"] .support-tier-name {
+        color: #f1f5f9;
+      }
+
+      [data-theme="dark"] .support-tier-price {
+        color: #60a5fa;
+      }
+
+      [data-theme="dark"] .support-tier-desc {
+        color: #94a3b8;
+      }
+
+      /* Dark mode: coffee CTA */
+      [data-theme="dark"] .coffee-cta {
+        background: #1e293b;
+        border-color: #334155;
+      }
+
+      [data-theme="dark"] .coffee-cta-text strong {
+        color: #f1f5f9;
+      }
+
+      [data-theme="dark"] .coffee-cta-text span {
         color: #94a3b8;
       }
 

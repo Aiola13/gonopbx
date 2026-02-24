@@ -1,0 +1,167 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Giscus from '../../../components/Giscus.astro';
+---
+
+<Layout title="v2.0.0 – Phonebook, BLF, Ring Groups & IVR Updates - GonoPBX Blog" description="GonoPBX v2.0.0 adds a global and per-extension phonebook, BLF/pickup groups, ring groups with DID assignment, and IVR updates with upload, retries, and inbound DID mapping." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/v2-0-0-release" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/v2-0-0-release" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog Article -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/blog/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Blog
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Release</span>
+          <span>February 13, 2026</span>
+          <span>&middot;</span>
+          <span>v2.0.0</span>
+        </div>
+        <h1>v2.0.0 – Phonebook, BLF, Ring Groups &amp; IVR Updates</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          With <strong>GonoPBX v2.0.0</strong> a big feature package lands that makes day‑to‑day work easier:
+          a central phonebook, BLF/pickup groups, ring groups with DID assignment, and notable IVR improvements.
+        </p>
+
+        <h2>New: Phonebook (global &amp; per extension)</h2>
+        <p>
+          Admins can now maintain a <strong>global phonebook</strong> that is visible to everyone.
+          In addition there is an <strong>extension phonebook</strong> for individual contacts.
+          Import and export are built in as <strong>CSV</strong>.
+        </p>
+
+        <h2>BLF &amp; Pickup Groups</h2>
+        <p>
+          Each extension can now enable BLF and be assigned to one or more
+          <strong>pickup groups</strong>. This lets you see who is busy and
+          quickly pick up calls within the team.
+        </p>
+
+        <h2>Ring Groups with DID assignment</h2>
+        <p>
+          Ring groups can be created with strategies (e.g., ringall) and
+          assigned directly to an <strong>inbound DID</strong>.
+          This is especially useful when routing entire number blocks to groups.
+        </p>
+
+        <h2>IVR improvements</h2>
+        <ul>
+          <li><strong>Prompt upload</strong> including conversion/validation</li>
+          <li><strong>Retries</strong> for failed attempts</li>
+          <li><strong>Inbound DID mapping</strong> directly to the IVR menu</li>
+        </ul>
+
+        <h2>UI updates</h2>
+        <p>
+          <strong>SIP Debug</strong> is now under <strong>Settings</strong>, and the Audio tab is now
+          called <strong>Audio Codecs</strong>.
+        </p>
+
+        <h2>Install the update</h2>
+
+        <h3>Automatic (recommended)</h3>
+        <p>
+          In the GonoPBX web interface under <strong>Settings → Server → Update</strong>
+          click “Install update”.
+        </p>
+
+        <h3>Manual</h3>
+        <pre><code>cd /root/asterisk-pbx-gui
+git pull origin main
+docker compose up -d --build</code></pre>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Note:</strong> Database migrations run automatically on startup.
+          </p>
+        </div>
+
+        <p>
+          You can find the full release notes on the
+          <a href="/en/release-notes" style="color:#3182ce;font-weight:600;">Release Notes page</a>
+          or directly on
+          <a href="https://github.com/ankaios76/gonopbx/releases/tag/v2.0.0" style="color:#3182ce;font-weight:600;" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+
+        <!-- Coffee CTA -->
+        <div class="coffee-cta">
+          <span class="coffee-cta-icon">&#9749;</span>
+          <div class="coffee-cta-text">
+            <strong>Enjoyed this post?</strong>
+            <span>GonoPBX is open source and free. Support ongoing development with a coffee.</span>
+          </div>
+          <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a Coffee
+          </a>
+        </div>
+
+        <Giscus />
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle script -->
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>

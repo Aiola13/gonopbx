@@ -1,0 +1,348 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Support - GonoPBX" description="Support GonoPBX with a coffee or help in other ways. Open source thrives with community support." lang="en">
+
+  
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/unterstuetzen" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/unterstuetzen" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/unterstuetzen" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- Hero -->
+  <section class="support-hero">
+    <div class="container" style="max-width:800px;text-align:center;">
+      <p style="font-size:3rem;margin-bottom:20px;">&#9749;</p>
+      <h1 style="font-size:2.4rem;font-weight:800;margin-bottom:16px;">Support GonoPBX</h1>
+      <p style="font-size:1.15rem;color:#4a5568;line-height:1.7;max-width:640px;margin:0 auto;">
+        GonoPBX is an open-source side project – completely free and ad-free.
+        The project is maintained by a single developer in their spare time, working on features,
+        bug fixes, and documentation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Why support -->
+  <section style="padding:64px 0;">
+    <div class="container" style="max-width:800px;">
+      <h2 class="support-page-h2">Why support?</h2>
+      <p style="color:#4a5568;font-size:1.05rem;line-height:1.7;margin-bottom:24px;">
+        Open-source software does not build itself. GonoPBX has ongoing costs
+        and requires many hours of development work. Every contribution helps keep
+        the project alive long-term.
+      </p>
+      <div class="support-costs-grid">
+        <div class="support-cost-item">
+          <span class="support-cost-icon">&#127760;</span>
+          <div>
+            <strong>Domain &amp; Hosting</strong>
+            <p>Servers for demo instance, website, and documentation.</p>
+          </div>
+        </div>
+        <div class="support-cost-item">
+          <span class="support-cost-icon">&#128187;</span>
+          <div>
+            <strong>Development</strong>
+            <p>New features, bug fixes, tests, and code reviews.</p>
+          </div>
+        </div>
+        <div class="support-cost-item">
+          <span class="support-cost-icon">&#128218;</span>
+          <div>
+            <strong>Documentation</strong>
+            <p>Manual, blog posts, release notes, and guides.</p>
+          </div>
+        </div>
+        <div class="support-cost-item">
+          <span class="support-cost-icon">&#128736;</span>
+          <div>
+            <strong>Infrastructure</strong>
+            <p>CI/CD, Docker images, SSL certificates, and monitoring.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tiers -->
+  <section style="padding:64px 0;background:#f7fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;" class="support-tiers-section">
+    <div class="container" style="max-width:800px;text-align:center;">
+      <h2 class="support-page-h2">Support with a coffee</h2>
+      <p style="color:#718096;margin-bottom:40px;font-size:1.05rem;">
+        Every contribution – no matter how small – is a big motivation.
+      </p>
+      <div class="support-tier-grid">
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card">
+          <span class="support-tier-emoji">&#9749;</span>
+          <span class="support-tier-name">Coffee</span>
+          <span class="support-tier-price">5 &euro;</span>
+          <span class="support-tier-desc">A thank-you for the work</span>
+        </a>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card support-tier-highlight">
+          <span class="support-tier-emoji">&#11088;</span>
+          <span class="support-tier-name">Supporter</span>
+          <span class="support-tier-price">10 &euro;</span>
+          <span class="support-tier-desc">Hosting &amp; domain for one month</span>
+        </a>
+        <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="support-tier-card">
+          <span class="support-tier-emoji">&#128640;</span>
+          <span class="support-tier-name">Super Fan</span>
+          <span class="support-tier-price">25 &euro;</span>
+          <span class="support-tier-desc">Pushes development forward</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other ways -->
+  <section style="padding:64px 0;">
+    <div class="container" style="max-width:800px;">
+      <h2 class="support-page-h2" style="text-align:center;">Other ways to help</h2>
+      <p style="color:#718096;text-align:center;margin-bottom:40px;font-size:1.05rem;">
+        Not only money matters – there are many ways to support GonoPBX.
+      </p>
+      <div class="support-ways-grid">
+        <a href="https://github.com/ankaios76/gonopbx" target="_blank" rel="noopener" class="support-way-card">
+          <div class="support-way-icon" style="background:#fffaf0;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dd6b20" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>GitHub Star</h3>
+          <p>A star on GitHub increases the project’s visibility.</p>
+        </a>
+        <a href="https://github.com/ankaios76/gonopbx/issues" target="_blank" rel="noopener" class="support-way-card">
+          <div class="support-way-icon" style="background:#fff5f5;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e53e3e" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3>Report Bugs</h3>
+          <p>Found a bug? An issue helps make GonoPBX better.</p>
+        </a>
+        <a href="https://github.com/ankaios76/gonopbx/discussions" target="_blank" rel="noopener" class="support-way-card">
+          <div class="support-way-icon" style="background:#f0fff4;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38a169" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          </div>
+          <h3>Share Ideas</h3>
+          <p>Feature suggestions and feedback in GitHub Discussions.</p>
+        </a>
+        <div class="support-way-card">
+          <div class="support-way-icon" style="background:#ebf8ff;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3182ce" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+          </div>
+          <h3>Spread the word</h3>
+          <p>Tell colleagues and friends about GonoPBX.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>
+
+<style>
+  .support-hero {
+    padding: 80px 0 48px;
+    background: linear-gradient(135deg, #ebf8ff 0%, #fffaf0 50%, #f0fff4 100%);
+  }
+
+  .support-page-h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #1a202c;
+  }
+
+  .support-costs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .support-cost-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #fff;
+  }
+
+  .support-cost-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .support-cost-item strong {
+    display: block;
+    font-size: 1rem;
+    color: #1a202c;
+    margin-bottom: 4px;
+  }
+
+  .support-cost-item p {
+    font-size: 0.9rem;
+    color: #718096;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .support-ways-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .support-way-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    transition: all 0.3s;
+    color: inherit;
+    text-decoration: none;
+    background: #fff;
+  }
+
+  .support-way-card:hover {
+    border-color: #bee3f8;
+    box-shadow: 0 8px 24px rgba(49,130,206,0.08);
+    transform: translateY(-3px);
+    color: inherit;
+  }
+
+  .support-way-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .support-way-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1a202c;
+  }
+
+  .support-way-card p {
+    font-size: 0.9rem;
+    color: #718096;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .support-hero { padding: 48px 0 32px; }
+    .support-hero h1 { font-size: 1.8rem !important; }
+    .support-costs-grid { grid-template-columns: 1fr; }
+    .support-ways-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Dark mode */
+  :global([data-theme="dark"]) .support-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  }
+
+  :global([data-theme="dark"]) .support-hero h1 {
+    color: #f1f5f9 !important;
+  }
+
+  :global([data-theme="dark"]) .support-hero p {
+    color: #94a3b8 !important;
+  }
+
+  :global([data-theme="dark"]) .support-page-h2 {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .support-cost-item {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .support-cost-item strong {
+    color: #e2e8f0;
+  }
+
+  :global([data-theme="dark"]) .support-cost-item p {
+    color: #94a3b8;
+  }
+
+  :global([data-theme="dark"]) .support-tiers-section {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+
+  :global([data-theme="dark"]) .support-way-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  :global([data-theme="dark"]) .support-way-card:hover {
+    border-color: #475569;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  :global([data-theme="dark"]) .support-way-card h3 {
+    color: #f1f5f9;
+  }
+
+  :global([data-theme="dark"]) .support-way-card p {
+    color: #94a3b8;
+  }
+</style>

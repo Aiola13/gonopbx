@@ -1,0 +1,146 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Giscus from '../../../components/Giscus.astro';
+---
+
+<Layout title="How the Name GonoPBX Was Born - GonoPBX Blog" description="Where does the name GonoPBX come from? The story behind the unusual project name." lang="en">
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="container">
+      <a href="/en/" class="nav-logo">
+        <img src="/logo.png" alt="GonoPBX Logo" />
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18" />
+        </svg>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/en/#features">Features</a></li>
+        <li><a href="/en/#screenshots">Screenshots</a></li>
+        <li><a href="/en/#techstack">Technology</a></li>
+        <li><a href="/en/release-notes">Release Notes</a></li>
+        <li><a href="/en/blog/">Blog</a></li>
+        <li><a href="/en/kontakt">Contact</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li class="nav-lang">
+          <a href="/blog/wie-der-name-entstand" class="lang-link">DE</a>
+          <span class="lang-sep">|</span>
+          <a href="/en/blog/wie-der-name-entstand" class="lang-link active">EN</a>
+        </li>
+        <li><a href="https://github.com/ankaios76/gonopbx" class="nav-cta">GitHub</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Blog Article -->
+  <section class="blog-article">
+    <div class="container">
+      <a href="/en/blog/" class="blog-back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Back to Blog
+      </a>
+
+      <div class="blog-article-header">
+        <div class="blog-card-meta" style="justify-content:center;">
+          <span class="blog-card-tag">Background</span>
+          <span>February 9, 2026</span>
+        </div>
+        <h1>How the name “GonoPBX” was born</h1>
+      </div>
+
+      <div class="blog-article-content">
+
+        <p>
+          “GonoPBX? What does that even mean?” – that’s usually the first reaction
+          when people hear the name. It doesn’t sound like a typical software project,
+          and that was never the plan. The story is actually quite simple.
+        </p>
+
+        <h2>PBX – the obvious part</h2>
+
+        <p>
+          <strong>PBX</strong> stands for <em>Private Branch Exchange</em> – a private phone system.
+          That’s exactly what GonoPBX is at its core: software that routes calls, manages extensions,
+          and assigns numbers. That part of the name was obvious.
+        </p>
+
+        <h2>Gono – the personal touch</h2>
+
+        <p>
+          <strong>Gono</strong> comes from my first name. I’m Norbert – and friends call me <strong>Nobby</strong>.
+          It’s a nickname I’ve had for years. At some point I registered the domain
+          <strong>gonobby.de</strong> as a personal domain, without any particular plan.
+        </p>
+
+        <p>
+          When I started tinkering with the phone system, I needed a name.
+          And it clicked: <strong>Go</strong> + <strong>No</strong>bby + <strong>PBX</strong> – GonoPBX.
+          Short, memorable, and with a personal story behind it.
+        </p>
+
+        <h2>Not a marketing name</h2>
+
+        <p>
+          GonoPBX isn’t a brand name crafted by a branding agency. It was created in five minutes
+          at my kitchen table. And that fits the project: a hobby project from Bremen,
+          not a Silicon Valley startup. The name can be a little unconventional.
+        </p>
+
+        <p>
+          Also, nobody had registered <code>gonopbx.de</code>. That might have been the best argument.
+        </p>
+
+        <div class="blog-info-box">
+          <p>
+            <strong>Fun fact:</strong> The domain <strong>gonobby.de</strong> still exists.
+            And who knows – maybe it will be used for something else one day.
+          </p>
+        </div>
+
+        <!-- Coffee CTA -->
+        <div class="coffee-cta">
+          <span class="coffee-cta-icon">&#9749;</span>
+          <div class="coffee-cta-text">
+            <strong>Enjoyed this post?</strong>
+            <span>GonoPBX is open source and free. Support ongoing development with a coffee.</span>
+          </div>
+          <a href="https://buymeacoffee.com/ankaios" target="_blank" rel="noopener" class="coffee-cta-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            Buy me a Coffee
+          </a>
+        </div>
+
+        <Giscus />
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="https://github.com/ankaios76/gonopbx">GitHub</a></li>
+        <li><a href="https://demo.gonopbx.de">Live Demo</a></li>
+        <li><a href="/en/unterstuetzen">Support</a></li>
+        <li><a href="/impressum">Imprint</a></li>
+        <li><a href="/datenschutz">Privacy</a></li>
+      </ul>
+      <p>&copy; 2026 Norbert Hengsteler. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('navToggle')?.addEventListener('click', () => {
+      document.getElementById('navLinks')?.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks')?.classList.remove('open');
+      });
+    });
+  </script>
+
+</Layout>
